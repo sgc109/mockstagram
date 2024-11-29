@@ -29,6 +29,8 @@ services:
     volumes:
       - ./init/mysql:/docker-entrypoint-initdb.d
       - mysql-data:/var/lib/mysql
+    networks:
+      - mockstagram-network
   redis:
     image: redis:6.0
     container_name: mockstagram-redis
@@ -40,6 +42,31 @@ services:
       - ./init/redis/users.acl:/etc/redis/users.acl  # ACL 파일 추가
       - redis_data:/data
     command: ["redis-server", "/usr/local/etc/redis/redis.conf", "--appendonly", "yes"]  # AOF 활성화로 데이터 영속성 보장
+    networks:
+      - mockstagram-network
+  kafka: # ref: https://github.com/apache/kafka/blob/trunk/docker/examples/README.md
+    image: apache/kafka:3.9.0
+    hostname: broker
+    container_name: mockstagram-kafka
+    environment:
+      # Environment variables used by kafka scripts will be needed in case of File input.
+      CLUSTER_ID: '4L6g3nShT-eMCtK--X86sw'
+      # Set properties not provided in the file input
+      KAFKA_NODE_ID: 1
+      KAFKA_CONTROLLER_QUORUM_VOTERS: '1@broker:29093'
+      KAFKA_LISTENERS: 'PLAINTEXT_HOST://:9092,SSL://:9093,CONTROLLER://:29093,PLAINTEXT://:19092'
+      # Override an existing property
+      KAFKA_PROCESS_ROLES: 'broker,controller'
+    ports:
+      - "9092:9092"
+      - "9093:9093"
+    volumes:
+      - ./init/kafka/file-input:/mnt/shared/config
+      - ./init/kafka/secrets:/etc/kafka/secrets
+      - /var/lib/kafka/data
+    restart: unless-stopped
+    networks:
+      - mockstagram-network
 volumes:
   mysql-data:
   redis_data:
