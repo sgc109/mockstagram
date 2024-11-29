@@ -10,7 +10,7 @@ app.get('/api/feed', (req, res) => {
   res.json(getFeedResponse);
 });
 
-const PORT = 8080;
+const PORT = 8081;
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
