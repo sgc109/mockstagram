@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker build --no-cache -f ./Dockerfile -t web-bff .
+docker build --no-cache -f ./Dockerfile -t web-bff ..

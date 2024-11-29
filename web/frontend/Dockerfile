@@ -5,17 +5,17 @@ FROM node:20.5.1
 WORKDIR /usr/src/app
 
 # Step 3: Copy package.json and package-lock.json to the working directory
-COPY bff/package*.json ./
+COPY frontend/package*.json ./
 
 # Step 4: Install dependencies
 RUN npm install
 
 # Step 5: Copy the rest of the application code
-COPY ./bff .
+COPY ./frontend .
 COPY ./shared ../shared
 
 # Step 6: Expose the port your application will run on
-EXPOSE 8082
+EXPOSE 8081
 
 # Step 7: Define the command to run the application
 CMD ["npm", "start"]

@@ -1,11 +1,19 @@
 version: '3.8'
 services:
+  web-frontend:
+    build:
+      context: ./web
+      dockerfile: ./frontend/Dockerfile
+    ports:
+      - "8081:8081"
+    networks:
+      - mockstagram-network
   web-bff:
     build:
-      context: ./web/bff  # 프로젝트 A의 경로
-      dockerfile: Dockerfile
+      context: ./web
+      dockerfile: ./bff/Dockerfile
     ports:
-      - "8081:8081"  # 외부 8081 포트를 컨테이너 8081 포트에 매핑
+      - "8082:8082"
     networks:
       - mockstagram-network
 

@@ -1,6 +1,6 @@
-# web-frontend
+# web-bff
 
-Web Frontend 서비스
+Web BFF(Backend For Frontend) 서비스
 
 ## 실행 방법
 
