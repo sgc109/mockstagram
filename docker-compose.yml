@@ -18,6 +18,19 @@ services:
       - "8082:8082"
     networks:
       - mockstagram-network
+  redis:
+    image: redis:6.0
+    container_name: mockstagram-redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./init/redis/redis.conf:/usr/local/etc/redis/redis.conf
+      - ./init/redis/users.acl:/etc/redis/users.acl  # ACL 파일 추가
+      - redis_data:/data
+    command: [ "redis-server", "/usr/local/etc/redis/redis.conf", "--appendonly", "yes" ]  # AOF 활성화로 데이터 영속성 보장
+    networks:
+      - mockstagram-network
   mysql:
     image: mysql:8.0
     container_name: mockstagram-mysql
@@ -29,19 +42,6 @@ services:
     volumes:
       - ./init/mysql:/docker-entrypoint-initdb.d
       - mysql-data:/var/lib/mysql
-    networks:
-      - mockstagram-network
-  redis:
-    image: redis:6.0
-    container_name: mockstagram-redis
-    restart: always
-    ports:
-      - "6379:6379"
-    volumes:
-      - ./init/redis/redis.conf:/usr/local/etc/redis/redis.conf
-      - ./init/redis/users.acl:/etc/redis/users.acl  # ACL 파일 추가
-      - redis_data:/data
-    command: ["redis-server", "/usr/local/etc/redis/redis.conf", "--appendonly", "yes"]  # AOF 활성화로 데이터 영속성 보장
     networks:
       - mockstagram-network
   kafka: # ref: https://github.com/apache/kafka/blob/trunk/docker/examples/README.md
