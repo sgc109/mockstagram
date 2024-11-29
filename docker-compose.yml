@@ -57,6 +57,7 @@ services:
       KAFKA_LISTENERS: 'PLAINTEXT_HOST://:9092,SSL://:9093,CONTROLLER://:29093,PLAINTEXT://:19092'
       # Override an existing property
       KAFKA_PROCESS_ROLES: 'broker,controller'
+      KAFKA_HEAP_OPTS: "-Xmx2G -Xms2G"  # JVM 힙 메모리 설정
     ports:
       - "9092:9092"
       - "9093:9093"
