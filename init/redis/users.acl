@@ -1,0 +1,9 @@
+user default off
+user root on >root ~* +@all
+
+user comment_user on >comment_pw ~comment:* +@read +@write
+user content_user on >content_pw ~content:* +@read +@write
+user interaction_user on >interaction_pw ~interaction:* +@read +@write
+user notification_user on >notification_pw ~notification:* +@read +@write
+user push_user on >push_pw ~push:* +@read +@write
+user user_user on >user_pw ~user:* +@read +@write

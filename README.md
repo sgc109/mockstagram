@@ -8,6 +8,7 @@ MSA 구조로 되어있어, 각 서비스가 별도의 디렉터리로 분리 �
 * 각 마이크로서비스는 gRPC 기반의 API 를 제공하며, 대부분 Kotlin + Spring WebFlux 를 기반으로 개발되었다.
 * Web frontend 는 React 로, Web BFF 는 Node.js(Express)로 개발되었으며, 모두 Typescript 기반이다.
 * admin 도 frontend 는 React, backend 는 Node.js(Express)로 개발되었으며, 모두 Typescript 기반이다.
+* DB 는 테스트 편의상 하나의 물리 DB 내 각 서비스별로 별도의 논리 DB 를 사용하며, 자신의 논리 DB 만 접근 가능하도록 권한을 초기화하도록 되어있다.
 
 ## 디렉터리 구조
 
