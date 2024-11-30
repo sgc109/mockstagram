@@ -2,13 +2,14 @@ import React from 'react';
 import {Post as PostData} from '../../../../../shared/post/types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faBookmark, faComment, faHeart, faPaperPlane} from '@fortawesome/free-solid-svg-icons'
-import "./Post.css";
+import "./FeedPost.css";
 
-interface PostProps {
+interface FeedPostProps {
     post: PostData;
+    openPostDetailDialog: () => void;
 }
 
-const Post: React.FC<PostProps> = ({post}) => {
+const FeedPost: React.FC<FeedPostProps> = ({post, openPostDetailDialog}) => {
     return (
         <div className="post">
             <div className="post-header">
@@ -20,16 +21,18 @@ const Post: React.FC<PostProps> = ({post}) => {
             {/* buttons below */}
             <div className="post-actions">
                 <div className="action-buttons">
-                    <button className="action-btn"><FontAwesomeIcon className='icon' icon={faHeart} inverse/></button>
                     {/* 좋아요 */}
-                    <button className="action-btn"><FontAwesomeIcon className='icon' icon={faComment} inverse/></button>
+                    <button className="action-btn"><FontAwesomeIcon className='icon' icon={faHeart} inverse/></button>
                     {/* 댓글 */}
-                    <button className="action-btn"><FontAwesomeIcon className='icon' icon={faPaperPlane} inverse/>
+                    <button className="action-btn" onClick={openPostDetailDialog}>
+                        <FontAwesomeIcon className='icon' icon={faComment} inverse/>
                     </button>
                     {/* 공유 */}
+                    <button className="action-btn"><FontAwesomeIcon className='icon' icon={faPaperPlane} inverse/>
+                    </button>
                 </div>
-                <button className="save-btn"><FontAwesomeIcon className='icon' icon={faBookmark} inverse/></button>
                 {/* 저장 */}
+                <button className="save-btn"><FontAwesomeIcon className='icon' icon={faBookmark} inverse/></button>
             </div>
 
             <div className="post-info">
@@ -41,4 +44,4 @@ const Post: React.FC<PostProps> = ({post}) => {
     );
 };
 
-export default Post;
+export default FeedPost;

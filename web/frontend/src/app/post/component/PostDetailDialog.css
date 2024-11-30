@@ -1,0 +1,159 @@
+/* 모달 본체 */
+.post-detail-dialog {
+    position: fixed;        /* 화면에 고정된 위치 */
+    top: 50%;                /* 화면의 50% 위치로 시작 (세로) */
+    left: 50%;               /* 화면의 50% 위치로 시작 (가로) */
+    transform: translate(-50%, -50%);  /* 가운데 정렬 (50%만큼 이동) */
+    width: 60%;            /* 원하는 width */
+    height: 90%;           /* 원하는 height */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 (예시) */
+    border-radius: 8px;      /* 테두리 둥글기 (예시) */
+    z-index: 3;           /* 다른 요소들보다 위에 오도록 */
+    padding: 20px;           /* 내부 여백 */
+    background-color: white;
+}
+
+.post-content-container {
+    display: flex;            /* flexbox로 설정 */
+    justify-content: space-between; /* 좌우로 요소들 간격을 두고 배치 */
+    align-items: center;      /* 세로로 가운데 정렬 */
+    gap: 15px;                /* 컴포넌트들 사이에 간격 추가 */
+    height: 100%
+}
+
+/* 예시로 두 개의 자식 요소인 post-left와 post-right 클래스가 있다고 가정 */
+.post-left {
+    flex: 6;                  /* 왼쪽 컴포넌트가 남은 공간을 차지하게 설정 */
+}
+
+.post-right {
+    flex: 4;                  /* 오른쪽 컴포넌트가 남은 공간을 차지하게 설정 */
+}
+
+/* 이미지 영역 */
+.post-image-container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.post-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.post-details {
+    height: 100%;
+}
+
+/* 프로필 정보 */
+.profile-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.profile-thumbnail {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.username {
+    font-weight: bold;
+}
+
+/* 본문 내용 */
+.post-content {
+    margin-bottom: 20px;
+    max-height: 100px;
+}
+
+/* 댓글 목록 */
+.comments-list {
+    max-height: 600px;
+    overflow-y: scroll;
+    margin-bottom: 20px;
+    height: 70%;
+}
+
+.comment {
+    margin-bottom: 15px;
+}
+
+.comment-author {
+    font-weight: bold;
+}
+
+.comment-text {
+    margin-left: 10px;
+}
+
+/* 액션 버튼 */
+.actions {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.action-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+/* 포스트 정보 (좋아요 수, 작성 날짜) */
+.post-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.comment-input {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+/* 댓글 입력창 */
+.comment-input input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* 기본 스타일 */
+.post-button {
+    background-color: transparent; /* 배경을 투명하게 */
+    color: rgb(0, 149, 246); /* 글씨 색상 */
+    font-size: 18px; /* 글씨 크기 (기존보다 키움) */
+    font-weight: bold; /* 글씨 두께 키움 */
+    padding: 10px 20px; /* 여백 */
+    border: none; /* 테두리 제거 */
+    cursor: pointer; /* 마우스 커서 변경 */
+    transition: all 0.05s ease; /* hover 및 focus 시 부드러운 전환 효과 */
+}
+
+/* hover 시 스타일 */
+.post-button:hover {
+    color: rgb(0, 130, 210); /* 글씨 색을 약간 어두운 색으로 변경 */
+}
+
+/* 클릭 시 스타일 (active 상태) */
+.post-button:active {
+    background-color: rgba(0, 149, 246, 0.1); /* 클릭 시 배경 색상 */
+    color: rgb(0, 110, 180); /* 클릭 시 글씨 색상 */
+}
