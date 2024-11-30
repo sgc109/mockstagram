@@ -16,15 +16,15 @@ const PostDetailDialog: React.FC<{ onClose: () => void }> = ({ onClose }) => {
                     {/* Post details on the right */}
                     <div className="post-details post-right">
                         <div className="profile-info">
-                            <img src="https://placehold.co/50x50" alt="Profile" className="profile-thumbnail" />
+                            <img src="https://placehold.co/50x50" alt="Profile" className="profile-thumbnail"/>
                             <span className="username">Username</span>
                         </div>
 
-                        <div className="post-content">
+                        <div className="post-content bordered-container">
                             <p>FeedPost content goes here. This is the description of the post.</p>
                         </div>
 
-                        <div className="comments-list">
+                        <div className="comments-list bordered-container">
                             {/* Add comments dynamically here */}
                             <div className="comment">
                                 <span className="comment-author">Commenter 1</span>
@@ -34,23 +34,27 @@ const PostDetailDialog: React.FC<{ onClose: () => void }> = ({ onClose }) => {
                         </div>
 
                         {/* Action buttons */}
-                        <div className="post-actions">
+                        <div className="post-actions bordered-container">
                             <div className="action-buttons">
-                                <button className="action-btn"><FontAwesomeIcon className="icon" icon={faHeart} inverse /></button>
-                                <button className="action-btn"><FontAwesomeIcon className="icon" icon={faComment} inverse /></button>
-                                <button className="action-btn"><FontAwesomeIcon className="icon" icon={faPaperPlane} inverse /></button>
+                                <button className="action-btn"><FontAwesomeIcon className="icon" icon={faHeart}
+                                                                                inverse/></button>
+                                <button className="action-btn"><FontAwesomeIcon className="icon" icon={faComment}
+                                                                                inverse/></button>
+                                <button className="action-btn"><FontAwesomeIcon className="icon" icon={faPaperPlane}
+                                                                                inverse/></button>
                             </div>
-                            <button className="save-btn"><FontAwesomeIcon className="icon" icon={faBookmark} inverse /></button>
+                            <button className="save-btn"><FontAwesomeIcon className="icon" icon={faBookmark} inverse/>
+                            </button>
                         </div>
 
                         <div className="post-footer">
-                            <span>Likes: 123</span>
-                            <span>Posted on: 2024-11-30</span>
+                            <span>8,853 likes</span>
+                            <span>18 hours ago</span>
                         </div>
 
                         <div className="comment-input">
                             <input type="text" placeholder="Add a comment..."/>
-                            <button className="post-button" >
+                            <button className="post-button">
                                 Post
                             </button>
                         </div>

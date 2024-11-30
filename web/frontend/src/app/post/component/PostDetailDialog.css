@@ -6,7 +6,7 @@
     transform: translate(-50%, -50%);  /* 가운데 정렬 (50%만큼 이동) */
     width: 60%;            /* 원하는 width */
     height: 90%;           /* 원하는 height */
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 (예시) */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 (예시) */
     border-radius: 8px;      /* 테두리 둥글기 (예시) */
     z-index: 3;           /* 다른 요소들보다 위에 오도록 */
     padding: 20px;           /* 내부 여백 */
@@ -17,7 +17,6 @@
     display: flex;            /* flexbox로 설정 */
     justify-content: space-between; /* 좌우로 요소들 간격을 두고 배치 */
     align-items: center;      /* 세로로 가운데 정렬 */
-    gap: 15px;                /* 컴포넌트들 사이에 간격 추가 */
     height: 100%
 }
 
@@ -43,12 +42,19 @@
     object-fit: cover;
 }
 
+.bordered-container {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);  /* 위쪽 테두리 */
+    padding: 20px;  /* 내부 여백 */
+    border-radius: 4px;  /* 둥글게 처리 (선택적) */
+}
+
 .post-details {
     height: 100%;
 }
 
 /* 프로필 정보 */
 .profile-info {
+    padding: 20px;
     display: flex;
     align-items: center;
     margin-bottom: 10px;
@@ -67,7 +73,6 @@
 
 /* 본문 내용 */
 .post-content {
-    margin-bottom: 20px;
     max-height: 100px;
 }
 
@@ -107,11 +112,14 @@
 /* 포스트 정보 (좋아요 수, 작성 날짜) */
 .post-footer {
     display: flex;
+    flex-direction: column;    /* 요소들을 세로로 배치 */
     justify-content: space-between;
     margin-bottom: 20px;
+    padding: 20px;
 }
 
 .comment-input {
+    padding: 20px;
     display: flex;
     gap: 10px;
     margin-bottom: 20px;
