@@ -1,4 +1,4 @@
-package sean.hwang.batch
+package sean.hwang.mockstagram.content.batch
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

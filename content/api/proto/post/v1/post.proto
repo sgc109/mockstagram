@@ -1,0 +1,42 @@
+syntax = "proto3";
+package post.v1;
+
+import "google/protobuf/wrappers.proto";
+
+option java_multiple_files = true;
+option java_package = "sean.hwang.mockstagram.content.post.api.v1";
+
+message Post {
+  string id = 1;
+  PostType type = 2;
+  google.protobuf.StringValue author_id = 3;
+  google.protobuf.StringValue description = 4;
+  google.protobuf.Int32Value width = 5;
+  google.protobuf.Int32Value height = 6;
+  repeated PostPage pages = 7;
+  google.protobuf.StringValue created_at = 8;
+  google.protobuf.StringValue updated_at = 9;
+  google.protobuf.Int64Value like_count = 10;
+  google.protobuf.Int64Value save_count = 11;
+  google.protobuf.Int64Value comment_count = 12;
+  google.protobuf.Int64Value share_count = 13;
+  google.protobuf.Int64Value view_count = 14;
+  google.protobuf.BoolValue on_hide = 15;
+  google.protobuf.BoolValue visible_on_feed = 16;
+  google.protobuf.BoolValue removed = 17;
+}
+
+enum PostType {
+  POST_TYPE_UNSPECIFIED = 0;
+  POST_TYPE_IMAGE = 1;
+  POST_TYPE_VIDEO = 2;
+}
+
+message PostPage {
+  string id = 1;
+  int32 position = 2;
+  google.protobuf.StringValue image_url = 3;
+  google.protobuf.StringValue video_url = 4;
+  google.protobuf.StringValue created_at = 5;
+  google.protobuf.StringValue updated_at = 6;
+}

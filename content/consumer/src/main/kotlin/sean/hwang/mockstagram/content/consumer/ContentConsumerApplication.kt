@@ -1,4 +1,4 @@
-package sean.hwang.consumer
+package sean.hwang.mockstagram.content.consumer
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

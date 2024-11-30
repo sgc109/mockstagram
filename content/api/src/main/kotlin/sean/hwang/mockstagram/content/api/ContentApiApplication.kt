@@ -1,4 +1,4 @@
-package sean.hwang.api
+package sean.hwang.mockstagram.content.api
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
