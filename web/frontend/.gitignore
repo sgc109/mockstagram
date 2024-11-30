@@ -1,5 +1,5 @@
 # TypeScript 빌드 결과물
-*.js
+#*.js
 *.js.map
 *.d.ts
 

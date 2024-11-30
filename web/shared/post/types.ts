@@ -19,3 +19,11 @@ export interface PostAuthor {
 export interface Page {
     imageUrl: string
 }
+
+export interface UploadPostRequest {
+
+}
+
+export interface UploadPostResponse {
+
+}
