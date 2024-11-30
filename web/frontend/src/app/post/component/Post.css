@@ -1,0 +1,39 @@
+.post-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+}
+  
+.action-buttons {
+    display: flex;
+    gap: 15px;
+}
+  
+.action-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+  
+.save-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* 아이콘 스타일링 */
+.icon {
+    fill: none;  /* 내부를 투명하게 설정 */
+    stroke: #000; /* 테두리 색상 */
+    stroke-width: 45; /* 테두리 두께 */
+    transition: all 0.05s; /* 애니메이션 */
+    width: 28px;  /* 아이콘 크기 조정 */
+    height: 28px; /* 아이콘 크기 조정 */  
+}
+  
+/* hover 시 테두리만 흐릿하게 처리 */
+.icon:hover {
+    stroke: rgba(0, 0, 0, 0.3);  /* 테두리만 흐릿하게 처리 */
+    /* 내부는 그대로 두고 테두리만 투명도를 조절 */
+}
