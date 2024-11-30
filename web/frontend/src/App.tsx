@@ -1,10 +1,11 @@
 import React from 'react';
-import Feed from './app/feed/page/Feed';
+import Feed from './app/home/page/Feed';
+import Sidebar from './app/home/page/Sidebar';
 import './styles.css';
 
 const App = () => (
   <div className="app">
-    <h1>Mockstagram</h1>
+    <Sidebar />
     <Feed />
   </div>
 );

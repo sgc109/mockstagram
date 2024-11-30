@@ -1,0 +1,57 @@
+/* Sidebar 전체 스타일 */
+.sidebar {
+  width: 400px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-right: 1px solid #dbdbdb;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+/* 메뉴 목록 스타일 */
+.sidebar__menu {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Logo at the top */
+.sidebar__logo {
+  font-family: 'Lobster', cursive; /* Example font */
+  font-size: 32px;
+  margin-top: 20px;
+  margin-left: 10px;
+  margin-bottom: 50px;
+  font-weight: 600;
+}
+
+/* 각 메뉴 아이템 스타일 */
+.sidebar__item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+  cursor: pointer;
+  font-size: 18px; /* 글씨 크기 키움 */
+  font-weight: 500;
+  color: #262626;
+  padding: 10px;
+  border-radius: 10px;
+  transition: background-color 0.2s;
+}
+
+/* 아이콘 스타일 */
+.sidebar__item i {
+  font-size: 28px; /* 아이콘 크기 */
+  margin-right: 18px; /* 텍스트와 아이콘 간 간격 */
+}
+
+/* 텍스트 스타일 */
+.sidebar__item span {
+  font-size: 22px; /* 글씨 크기 */
+}
+
+/* 메뉴 hover 스타일 */
+.sidebar__item:hover {
+  background-color: #f9f9f9;
+}
