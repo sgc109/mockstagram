@@ -28,9 +28,8 @@ class PostGrpcService : PostServiceGrpcKt.PostServiceCoroutineImplBase() {
             this.pages +=
                 listOf(
                     postPage {
-                        this.id = "1"
-                        this.imageUrl = StringValue.of("https://placehold.co/400x400/000000/FFFFFF")
                         this.position = 0
+                        this.imageUrl = StringValue.of("https://placehold.co/400x400/000000/FFFFFF")
                         this.createdAt = Timestamp.getDefaultInstance()
                         this.updatedAt = Timestamp.getDefaultInstance()
                     },

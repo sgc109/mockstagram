@@ -34,10 +34,9 @@ enum PostType {
 }
 
 message PostPage {
-  string id = 1;
-  int32 position = 2;
-  google.protobuf.StringValue image_url = 3;
-  google.protobuf.StringValue video_url = 4;
-  google.protobuf.Timestamp created_at = 5;
-  google.protobuf.Timestamp updated_at = 6;
+  int32 position = 1;
+  google.protobuf.StringValue image_url = 2;
+  google.protobuf.StringValue video_url = 3;
+  google.protobuf.Timestamp created_at = 4;
+  google.protobuf.Timestamp updated_at = 5;
 }
