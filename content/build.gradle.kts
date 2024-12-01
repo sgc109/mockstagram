@@ -3,6 +3,7 @@ plugins {
 
     id("java")
     kotlin("jvm") version kotlinVersion
+    kotlin("plugin.allopen") version kotlinVersion apply false
     kotlin("kapt") version kotlinVersion
     kotlin("plugin.spring") version kotlinVersion apply false
     kotlin("plugin.jpa") version kotlinVersion apply false

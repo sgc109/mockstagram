@@ -4,9 +4,6 @@ plugins {
     id("io.spring.dependency-management")
 }
 
-group = "sean.hwang"
-version = "0.0.1-SNAPSHOT"
-
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.jetbrains.kotlin:kotlin-reflect")

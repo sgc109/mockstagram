@@ -5,7 +5,7 @@ import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
 
 option java_multiple_files = true;
-option java_package = "sean.hwang.mockstagram.content.post.api.v1";
+option java_package = "sean.hwang.mockstagram.content.api.post.v1";
 
 message Post {
   string id = 1;
@@ -37,6 +37,4 @@ message PostPage {
   int32 position = 1;
   google.protobuf.StringValue image_url = 2;
   google.protobuf.StringValue video_url = 3;
-  google.protobuf.Timestamp created_at = 4;
-  google.protobuf.Timestamp updated_at = 5;
 }

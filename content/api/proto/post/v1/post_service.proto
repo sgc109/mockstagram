@@ -6,7 +6,7 @@ import "google/protobuf/wrappers.proto";
 import "post/v1/post.proto";
 
 option java_multiple_files = true;
-option java_package = "sean.hwang.mockstagram.content.post.api.v1";
+option java_package = "sean.hwang.mockstagram.content.api.post.v1";
 
 service PostService {
   rpc CreatePost (CreatePostRequest) returns (Post) {
@@ -17,13 +17,14 @@ service PostService {
 }
 
 message CreatePostRequest {
-  google.protobuf.StringValue author_id = 1;
-  repeated PostForm post = 2;
+  google.protobuf.StringValue requester_id = 1;
+  PostForm post = 2;
 }
 
 message PostForm {
   google.protobuf.StringValue description = 1;
-  repeated PostPageForm pages = 2;
+  PostType type = 2;
+  repeated PostPageForm pages = 3;
 }
 
 message PostPageForm {

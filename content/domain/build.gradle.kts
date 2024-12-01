@@ -1,4 +1,5 @@
 plugins {
+    kotlin("plugin.allopen")
     kotlin("plugin.spring")
     id("org.springframework.boot")
     id("io.spring.dependency-management")
@@ -18,6 +19,8 @@ dependencies {
 
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb-reactive")
+
+    api("org.mongodb:bson")
 
     testImplementation(kotlin("test"))
 }

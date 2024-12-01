@@ -8,9 +8,6 @@ plugins {
     id("com.google.protobuf")
 }
 
-group = "sean.hwang"
-version = "0.0.1-SNAPSHOT"
-
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(17)

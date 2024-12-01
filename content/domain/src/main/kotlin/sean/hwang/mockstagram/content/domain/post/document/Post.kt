@@ -1,18 +1,19 @@
+package sean.hwang.mockstagram.content.domain.post.document
+
+import org.bson.types.ObjectId
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.data.mongodb.core.mapping.Field
-import sean.hwang.mockstagram.content.domain.post.document.PostPage
-import sean.hwang.mockstagram.content.domain.post.document.PostType
 import java.time.Instant
 
 @Document(collection = "posts")
 data class Post(
     @Id
-    val id: String,
+    val id: ObjectId? = null,
     @Field("type")
     val type: PostType,
     @Field("author_id")
-    val authorId: String? = null,
+    val authorId: String,
     @Field("description")
     val description: String? = null,
     @Field("width")

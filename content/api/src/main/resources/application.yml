@@ -1,6 +1,12 @@
 server:
   port: 50051
-#logging:
-#  level:
-#    org.springframework: DEBUG
-#    com.linecorp.armeria: DEBUG
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://content_user:content_pw@localhost:27017/content
+
+logging:
+  level:
+    org.springframework: DEBUG
+    com.linecorp.armeria: DEBUG
