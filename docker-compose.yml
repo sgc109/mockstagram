@@ -44,6 +44,19 @@ services:
       - mysql-data:/var/lib/mysql
     networks:
       - mockstagram-network
+  mongodb:
+    image: mongo:4.4
+    container_name: mockstagram-mongodb
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./init/mongodb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    networks:
+      - mockstagram-network
   kafka: # ref: https://github.com/apache/kafka/blob/trunk/docker/examples/README.md
     image: apache/kafka:3.9.0
     hostname: broker
