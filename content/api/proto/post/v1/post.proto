@@ -1,6 +1,7 @@
 syntax = "proto3";
 package post.v1;
 
+import "google/protobuf/timestamp.proto";
 import "google/protobuf/wrappers.proto";
 
 option java_multiple_files = true;
@@ -14,8 +15,8 @@ message Post {
   google.protobuf.Int32Value width = 5;
   google.protobuf.Int32Value height = 6;
   repeated PostPage pages = 7;
-  google.protobuf.StringValue created_at = 8;
-  google.protobuf.StringValue updated_at = 9;
+  google.protobuf.Timestamp created_at = 8;
+  google.protobuf.Timestamp updated_at = 9;
   google.protobuf.Int64Value like_count = 10;
   google.protobuf.Int64Value save_count = 11;
   google.protobuf.Int64Value comment_count = 12;
@@ -37,6 +38,6 @@ message PostPage {
   int32 position = 2;
   google.protobuf.StringValue image_url = 3;
   google.protobuf.StringValue video_url = 4;
-  google.protobuf.StringValue created_at = 5;
-  google.protobuf.StringValue updated_at = 6;
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp updated_at = 6;
 }

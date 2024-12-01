@@ -1,0 +1,17 @@
+### CreatePost
+POST {{host}}/post.v1.PostService/CreatePost
+Content-Type: application/json; charset=utf-8; protocol=gRPC
+
+{
+  "author_id": "1",
+  "post": [
+    {
+      "description": "description",
+      "pages": [
+        {
+          "image_url": "https://placehold.co/400x400/000000/FFF"
+        }
+      ]
+    }
+  ]
+}

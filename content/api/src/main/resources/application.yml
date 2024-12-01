@@ -1,0 +1,6 @@
+server:
+  port: 50051
+#logging:
+#  level:
+#    org.springframework: DEBUG
+#    com.linecorp.armeria: DEBUG
