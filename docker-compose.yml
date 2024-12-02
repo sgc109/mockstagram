@@ -6,7 +6,9 @@ services:
       dockerfile: ./frontend/Dockerfile
     container_name: mockstagram-web-frontend
     ports:
-      - "8081:8081"
+      - "80:8081"
+    depends_on:
+      - web-bff
     networks:
       - mockstagram-network
   web-bff:
@@ -53,23 +55,29 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: root
     ports:
       - "27017:27017"
+    command: ["mongod", "--replSet", "rs0", "--keyFile", "/etc/mongo-keyfile", "--auth"]
     volumes:
       - ./init/mongodb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+      - ./init/mongodb/mongo-keyfile:/etc/mongo-keyfile:ro
     networks:
       - mockstagram-network
   kafka: # ref: https://github.com/apache/kafka/blob/trunk/docker/examples/README.md
     image: apache/kafka:3.9.0
-    hostname: broker
+    hostname: kafka
     container_name: mockstagram-kafka
     environment:
-      # Environment variables used by kafka scripts will be needed in case of File input.
-      CLUSTER_ID: '4L6g3nShT-eMCtK--X86sw'
-      # Set properties not provided in the file input
       KAFKA_NODE_ID: 1
-      KAFKA_CONTROLLER_QUORUM_VOTERS: '1@broker:29093'
-      KAFKA_LISTENERS: 'PLAINTEXT_HOST://:9092,SSL://:9093,CONTROLLER://:29093,PLAINTEXT://:19092'
-      # Override an existing property
-      KAFKA_PROCESS_ROLES: 'broker,controller'
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_LISTENERS: PLAINTEXT://:9092,CONTROLLER://:9093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_NUM_PARTITIONS: 1
       KAFKA_HEAP_OPTS: "-Xmx2G -Xms2G"  # JVM 힙 메모리 설정
     ports:
       - "9092:9092"
@@ -79,6 +87,35 @@ services:
       - ./init/kafka/secrets:/etc/kafka/secrets
       - /var/lib/kafka/data
     restart: unless-stopped
+    networks:
+      - mockstagram-network
+  kafka-connect:
+    image: debezium/connect:2.7.0.Final
+    container_name: mockstagram-kafka-connect
+    hostname: kafka-connect
+    ports:
+      - "8083:8083"
+    depends_on:
+      - mysql
+      - mongodb
+      - kafka
+    environment:
+      - BOOTSTRAP_SERVERS=kafka:9092
+      - GROUP_ID=debezium
+      - CONFIG_STORAGE_TOPIC=DEBEZIUM_CONNECT_CONFIGS
+      - OFFSET_STORAGE_TOPIC=DEBEZIUM_CONNECT_OFFSETS
+      - STATUS_STORAGE_TOPIC=DEBEZIUM_CONNECT_STATUSES
+    volumes:
+      - ./init/kafka-connect/mongo-source-connector.json:/kafka/connect/mongo-source-connector.json
+    networks:
+      - mockstagram-network
+  akhq:
+    image: tchiotludo/akhq:0.25.1
+    container_name: mockstagram-akhq
+    ports:
+      - "8080:8080"
+    environment:
+      - AKHQ_OPTS=-Dakhq.storage.kafka.bootstrap-servers=kafka:9092
     networks:
       - mockstagram-network
 volumes:

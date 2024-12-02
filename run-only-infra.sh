@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker-compose up --build mysql redis kafka mongodb
+docker-compose up --build mysql redis kafka mongodb kafka-connect

@@ -20,3 +20,11 @@ users.forEach(({ username, password, database }) => {
     });
     print(`Created user ${username} for database ${database}`);
 });
+
+// Initiate replica set
+rs.initiate({
+    _id: "rs0",
+    members: [
+        { _id: 0, host: "localhost:27017" }
+    ]
+});
