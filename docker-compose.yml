@@ -20,6 +20,17 @@ services:
       - "8082:8082"
     networks:
       - mockstagram-network
+  content-api:
+    image: mockstagram-content-api
+    container_name: mockstagram-content-api
+    depends_on:
+      - mongodb
+    ports:
+      - "50051:50051"
+    environment:
+      MONGODB_DATASOURCE_URL: mongodb://content_user:content_pw@mongodb:27017/content
+    networks:
+      - mockstagram-network
   redis:
     image: redis:6.0
     container_name: mockstagram-redis

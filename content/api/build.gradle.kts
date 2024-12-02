@@ -6,6 +6,7 @@ plugins {
     id("io.spring.dependency-management")
     kotlin("plugin.jpa")
     id("com.google.protobuf")
+    id("com.google.cloud.tools.jib")
 }
 
 java {
@@ -86,6 +87,23 @@ sourceSets {
             srcDir("build/generated/source/proto/main/grpckt")
         }
     }
+}
+
+jib {
+    from {
+        image = "openjdk:17-jdk-slim" // 베이스 이미지
+    }
+    to {
+        image = "mockstagram-content-api"
+    }
+    container {
+        jvmFlags = listOf("-Xms512m", "-Xmx1024m")
+        ports = listOf("50051")
+    }
+}
+
+tasks.named("build") {
+    dependsOn("jibDockerBuild")
 }
 
 tasks.withType<Test> {

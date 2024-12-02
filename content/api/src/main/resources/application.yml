@@ -4,7 +4,7 @@ server:
 spring:
   data:
     mongodb:
-      uri: mongodb://content_user:content_pw@localhost:27017/content
+      uri: ${MONGODB_DATASOURCE_URL:mongodb://content_user:content_pw@localhost:27017/content}
 
 logging:
   level:
