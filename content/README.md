@@ -4,11 +4,11 @@
 
 ## Sub-modules
 
-* /api
+* `/api`
   * API definition and implementation
-* /batch
+* `/batch`
   * Batch job
-* /consumer
+* `/consumer`
   * Kafka consumer
-* /domain
+* `/domain`
   * Data access layer and business logic
