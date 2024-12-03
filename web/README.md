@@ -1,13 +1,13 @@
+# Web
 
-# 디렉터리 구조
+## Directory Structure
 * bff
-  * Node.js(Express) 기반 backend 디렉터리
+  * Node.js(Express)-based BFF(Backend For Frontend) server
 * frontend
-  * React 기반 frontend 디렉터리
+  * React-based frontend
 * shared
-  * bff(backend)와 frontend 가 공유하는 interface 들을 모아 놓은 디렉터리
-  * API 요청, 응답, 모델 등
+  * sharing codes for bff and frontend
+  * API request, response, models, etc.
 
-# 실행방법
-* 터미널을 2개 띄워놓고 한 쪽은 bff, 다른 한 쪽은 frontend 에 위치하고 각각 `npm start` 를 실행
-* TODO - bff 쪽에 nodemon 적용하여 코드 저장할 때마다 재실행되도록 하기
+## How to test
+* Open 2 terminals and locate one at bff and the other at frontend, and run `npm start` for each
