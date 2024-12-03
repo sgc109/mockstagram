@@ -1,11 +1,11 @@
 # Web
 
 ## Directory Structure
-* bff
+* `/bff`
   * Node.js(Express)-based BFF(Backend For Frontend) server
-* frontend
+* `/frontend`
   * React-based frontend
-* shared
+* `/shared`
   * sharing codes for bff and frontend
   * API request, response, models, etc.
 
