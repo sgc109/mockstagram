@@ -83,6 +83,54 @@ services:
       - ./init/mongodb/mongo-keyfile:/etc/mongo-keyfile:ro
     networks:
       - mockstagram-network
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.16.1
+    container_name: mockstagram-elasticsearch
+    environment:
+      - discovery.type=single-node # single node cluster setting
+      - xpack.security.enabled=false
+      - bootstrap.memory_lock=true # For performance improvement
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g" # JVM 힙 메모리 설정
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200" # Elasticsearch API
+      - "9300:9300" # 클러스터 통신
+    healthcheck:
+      test: curl -s http://localhost:9200/_cluster/health | grep green || exit 1
+      interval: 30s
+      timeout: 10s
+      retries: 3
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.16.1 # same version with Elasticsearch
+    container_name: mockstagram-kibana
+    ports:
+      - "5601:5601" # Kibana Web UI
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200 # connect to Elasticsearch
+    depends_on:
+      - elasticsearch
+  neo4j:
+    image: neo4j:5.25.1
+    container_name: mockstagram-neo4j
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    environment:
+      NEO4J_AUTH: neo4j/root # username / password
+      NEO4J_dbms_security_auth__minimum__password__length: 4
+      NEO4J_dbms_memory_pagecache_size: 512M # cache size (e.g. 512MB)
+      NEO4J_dbms_memory_heap_initial__size: 1G # initial heap memory
+      NEO4J_dbms_memory_heap_max__size: 1G # max heap memory
+    volumes:
+      - neo4j_data:/data # data saving volume
+      - neo4j_logs:/logs # log saving volume
+      - neo4j_import:/var/lib/neo4j/import # CSV 데이터 등 가져오기 파일 저장
+      - neo4j_plugins:/plugins # Neo4j 플러그인 설치 위치
   kafka: # ref: https://github.com/apache/kafka/blob/trunk/docker/examples/README.md
     image: apache/kafka:3.9.0
     hostname: kafka
@@ -143,6 +191,11 @@ services:
 volumes:
   mysql-data:
   redis_data:
+  es_data:
+  neo4j_data:
+  neo4j_logs:
+  neo4j_import:
+  neo4j_plugins:
 networks:
   mockstagram-network:
     driver: bridge
