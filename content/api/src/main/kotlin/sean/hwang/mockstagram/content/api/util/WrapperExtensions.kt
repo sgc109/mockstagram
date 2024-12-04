@@ -8,9 +8,11 @@ import com.google.protobuf.FloatValue
 import com.google.protobuf.Int32Value
 import com.google.protobuf.Int64Value
 import com.google.protobuf.StringValue
+import com.google.protobuf.Timestamp
 import com.google.protobuf.UInt32Value
 import com.google.protobuf.UInt64Value
 import java.math.BigDecimal
+import java.time.Instant
 
 fun StringValue.orElseNull(): String? = if (this === StringValue.getDefaultInstance()) {
     null
@@ -179,3 +181,5 @@ fun Boolean.toBoolValue(): BoolValue = BoolValue.newBuilder().setValue(this).bui
 fun ByteString.toBytesValue(): BytesValue = BytesValue.newBuilder().setValue(this).build()
 
 fun BigDecimal.toStringValue(): StringValue = StringValue.newBuilder().setValue(this.toPlainString()).build()
+
+fun Instant.toTimestamp() = Timestamp.newBuilder().setSeconds(epochSecond).setNanos(nano).build()

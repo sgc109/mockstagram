@@ -1,7 +1,9 @@
 package sean.hwang.mockstagram.content.domain.post.document
 
 import org.bson.types.ObjectId
+import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.Id
+import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.data.mongodb.core.mapping.Field
 import java.time.Instant
@@ -38,8 +40,10 @@ data class Post(
     val visibleOnFeed: Boolean = true,
     @Field("removed")
     val removed: Boolean = false,
+    @CreatedDate
     @Field("created_at")
     val createdAt: Instant? = null,
+    @LastModifiedDate
     @Field("updated_at")
     val updatedAt: Instant? = null,
 )

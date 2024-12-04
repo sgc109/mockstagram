@@ -10,6 +10,7 @@ import sean.hwang.mockstagram.content.api.util.toBoolValue
 import sean.hwang.mockstagram.content.api.util.toInt32Value
 import sean.hwang.mockstagram.content.api.util.toInt64Value
 import sean.hwang.mockstagram.content.api.util.toStringValue
+import sean.hwang.mockstagram.content.api.util.toTimestamp
 
 object Converters {
     fun sean.hwang.mockstagram.content.domain.post.document.Post.toProto(): Post {
@@ -36,6 +37,8 @@ object Converters {
             this.onHide = document.onHide.toBoolValue()
             this.removed = document.removed.toBoolValue()
             this.visibleOnFeed = document.visibleOnFeed.toBoolValue()
+            document.createdAt?.let { this.createdAt = it.toTimestamp() }
+            document.updatedAt?.let { this.updatedAt = it.toTimestamp() }
         }
     }
 
