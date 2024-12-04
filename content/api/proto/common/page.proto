@@ -1,0 +1,13 @@
+syntax = "proto3";
+package common;
+
+import "google/protobuf/wrappers.proto";
+
+option java_multiple_files = true;
+option java_package = "sean.hwang.mockstagram.content.api.common";
+
+message Page {
+  // 1-based index(If the value is less than 1, it will be converted to 1)
+  int32 num = 1;
+  int32 size = 2;
+}

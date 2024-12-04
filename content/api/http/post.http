@@ -3,7 +3,7 @@ POST {{host}}/post.v1.PostService/CreatePost
 Content-Type: application/json; charset=utf-8; protocol=gRPC
 
 {
-  "requesterId": "1",
+  "requesterId": "67506d607eff4332976ce23d",
   "post": {
     "description": "description",
     "type": "POST_TYPE_IMAGE",
@@ -13,4 +13,19 @@ Content-Type: application/json; charset=utf-8; protocol=gRPC
       }
     ]
   }
+}
+
+### ListPosts
+POST {{host}}/post.v1.PostService/ListPosts
+Content-Type: application/json; charset=utf-8; protocol=gRPC
+
+{
+  "page": {
+    "num": 1,
+    "size": 20
+  },
+  "filter": {
+    "authorId": "67506d607eff4332976ce23d"
+  },
+  "order": "ORDER_NEWEST"
 }

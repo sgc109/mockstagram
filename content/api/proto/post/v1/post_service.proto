@@ -1,6 +1,7 @@
 syntax = "proto3";
 package post.v1;
 
+import "common/page.proto";
 import "google/api/annotations.proto";
 import "google/protobuf/wrappers.proto";
 import "post/v1/post.proto";
@@ -12,6 +13,12 @@ service PostService {
   rpc CreatePost (CreatePostRequest) returns (Post) {
     option (google.api.http) = {
       post: "/v1/posts"
+    };
+  }
+
+  rpc ListPosts (ListPostsRequest) returns (ListPostsResponse) {
+    option (google.api.http) = {
+      get: "/v1/posts"
     };
   }
 }
@@ -29,4 +36,24 @@ message PostForm {
 
 message PostPageForm {
   google.protobuf.StringValue image_url = 1;
+}
+
+message ListPostsRequest {
+  common.Page page = 1;
+  Filter filter = 2;
+  Order order = 3;
+
+  message Filter {
+    google.protobuf.StringValue author_id = 1;
+  }
+
+  enum Order {
+    ORDER_UNSPECIFIED = 0;
+    ORDER_NEWEST = 1;
+  }
+}
+
+message ListPostsResponse {
+  repeated Post posts = 1;
+  string next_page_token = 2;
 }

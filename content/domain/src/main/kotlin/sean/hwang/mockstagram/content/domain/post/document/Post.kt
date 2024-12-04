@@ -42,8 +42,8 @@ data class Post(
     val removed: Boolean = false,
     @CreatedDate
     @Field("created_at")
-    val createdAt: Instant? = null,
+    var createdAt: Instant? = null,
     @LastModifiedDate
     @Field("updated_at")
-    val updatedAt: Instant? = null,
+    var updatedAt: Instant? = null,
 )
