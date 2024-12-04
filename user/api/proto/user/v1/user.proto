@@ -1,0 +1,24 @@
+syntax = "proto3";
+package user.v1;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+
+option java_multiple_files = true;
+option java_package = "sean.hwang.mockstagram.user.api.user.v1";
+
+message User {
+  string id = 1;
+  google.protobuf.StringValue username = 2;
+  google.protobuf.StringValue name = 3;
+  google.protobuf.StringValue bio = 4;
+  google.protobuf.StringValue imageUrl = 5;
+  google.protobuf.StringValue thumbnailUrl = 6;
+  google.protobuf.StringValue websiteUrl = 7;
+  google.protobuf.Int64Value post_count = 8;
+  google.protobuf.Int64Value follower_count = 9;
+  google.protobuf.Int64Value following_count = 10;
+  google.protobuf.BoolValue is_hidden = 11;
+  google.protobuf.Timestamp created_at = 12;
+  google.protobuf.Timestamp updated_at = 13;
+}

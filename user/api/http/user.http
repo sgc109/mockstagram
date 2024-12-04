@@ -1,0 +1,9 @@
+### GetUser
+POST {{host}}/user.v1.UserService/FindUser
+Content-Type: application/json; charset=utf-8; protocol=gRPC
+
+{
+  "filter": {
+    "username": "seanhwang"
+  }
+}

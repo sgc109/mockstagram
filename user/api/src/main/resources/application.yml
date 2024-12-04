@@ -1,0 +1,13 @@
+server:
+  port: 50054
+
+spring:
+  data:
+    mongodb:
+      uri: ${MONGODB_DATASOURCE_URL:mongodb://user_user:user_pw@localhost:27017/user}
+      auto-index-creation: true
+logging:
+  level:
+    org.springframework: DEBUG
+    com.linecorp.armeria: DEBUG
+

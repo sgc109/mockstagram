@@ -1,0 +1,26 @@
+syntax = "proto3";
+package user.v1;
+
+import "google/api/annotations.proto";
+import "google/protobuf/wrappers.proto";
+import "user/v1/user.proto";
+
+option java_multiple_files = true;
+option java_package = "sean.hwang.mockstagram.content.api.user.v1";
+
+service UserService {
+  rpc FindUser (FindUserRequest) returns (User) {
+    option (google.api.http) = {
+      get: "/v1/users"
+    };
+  }
+}
+
+message FindUserRequest {
+  Filter filter = 1;
+}
+
+message Filter {
+  google.protobuf.StringValue id = 1;
+  google.protobuf.StringValue username = 2;
+}
