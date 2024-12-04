@@ -94,7 +94,7 @@ jib {
         image = "openjdk:17-jdk-slim" // 베이스 이미지
     }
     to {
-        image = "mockstagram-content-api"
+        image = "mockstagram-user-api"
     }
     container {
         jvmFlags = listOf("-Xms512m", "-Xmx1024m")

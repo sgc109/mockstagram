@@ -31,6 +31,17 @@ services:
       MONGODB_DATASOURCE_URL: mongodb://content_user:content_pw@mongodb:27017/content
     networks:
       - mockstagram-network
+  user-api:
+    image: mockstagram-user-api
+    container_name: mockstagram-user-api
+    depends_on:
+      - mongodb
+    ports:
+      - "50054:50054"
+    environment:
+      MONGODB_DATASOURCE_URL: mongodb://user_user:user_pw@mongodb:27017/user
+    networks:
+      - mockstagram-network
   redis:
     image: redis:6.0
     container_name: mockstagram-redis

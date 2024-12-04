@@ -1,6 +1,6 @@
 plugins {
-    val kotlinVersion = "1.9.0"
-
+    val kotlinVersion = "1.9.21"
+    val kspVersion = "1.9.21-1.0.16"
     id("java")
     kotlin("jvm") version kotlinVersion
     kotlin("plugin.allopen") version kotlinVersion apply false
@@ -11,6 +11,7 @@ plugins {
     id("io.spring.dependency-management") version "1.1.6" apply false
     id("com.google.protobuf") version "0.9.4" apply false
     id("com.google.cloud.tools.jib") version "3.4.4" apply false
+    id("com.google.devtools.ksp") version kspVersion
 }
 
 group = "sean.hwang"
