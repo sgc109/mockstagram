@@ -23,10 +23,10 @@ services:
   content-api:
     image: mockstagram-content-api
     container_name: mockstagram-content-api
-    depends_on:
-      - mongodb
     ports:
       - "50051:50051"
+    depends_on:
+      - mongodb
     environment:
       MONGODB_DATASOURCE_URL: mongodb://content_user:content_pw@mongodb:27017/content
     networks:
@@ -34,10 +34,11 @@ services:
   user-api:
     image: mockstagram-user-api
     container_name: mockstagram-user-api
-    depends_on:
-      - mongodb
     ports:
       - "50054:50054"
+    depends_on:
+      - mongodb
+      - neo4j
     environment:
       MONGODB_DATASOURCE_URL: mongodb://user_user:user_pw@mongodb:27017/user
     networks:
@@ -48,21 +49,21 @@ services:
     restart: always
     ports:
       - "6379:6379"
+    command: [ "redis-server", "/usr/local/etc/redis/redis.conf", "--appendonly", "yes" ]  # AOF 활성화로 데이터 영속성 보장
     volumes:
       - ./init/redis/redis.conf:/usr/local/etc/redis/redis.conf
       - ./init/redis/users.acl:/etc/redis/users.acl  # ACL 파일 추가
       - redis_data:/data
-    command: [ "redis-server", "/usr/local/etc/redis/redis.conf", "--appendonly", "yes" ]  # AOF 활성화로 데이터 영속성 보장
     networks:
       - mockstagram-network
   mysql:
     image: mysql:8.0
     container_name: mockstagram-mysql
     restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: root
     ports:
       - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
     volumes:
       - ./init/mysql:/docker-entrypoint-initdb.d
       - mysql-data:/var/lib/mysql
@@ -72,12 +73,12 @@ services:
     image: mongo:4.4
     container_name: mockstagram-mongodb
     restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: root
     ports:
       - "27017:27017"
     command: ["mongod", "--replSet", "rs0", "--keyFile", "/etc/mongo-keyfile", "--auth"]
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
     volumes:
       - ./init/mongodb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
       - ./init/mongodb/mongo-keyfile:/etc/mongo-keyfile:ro
@@ -86,25 +87,27 @@ services:
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.16.1
     container_name: mockstagram-elasticsearch
+    ports:
+      - "9200:9200" # Elasticsearch API
+      - "9300:9300" # 클러스터 통신
     environment:
       - discovery.type=single-node # single node cluster setting
       - xpack.security.enabled=false
       - bootstrap.memory_lock=true # For performance improvement
       - "ES_JAVA_OPTS=-Xms1g -Xmx1g" # JVM 힙 메모리 설정
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
     ulimits:
       memlock:
         soft: -1
         hard: -1
-    volumes:
-      - es_data:/usr/share/elasticsearch/data
-    ports:
-      - "9200:9200" # Elasticsearch API
-      - "9300:9300" # 클러스터 통신
     healthcheck:
       test: curl -s http://localhost:9200/_cluster/health | grep green || exit 1
       interval: 30s
       timeout: 10s
       retries: 3
+    networks:
+      - mockstagram-network
   kibana:
     image: docker.elastic.co/kibana/kibana:8.16.1 # same version with Elasticsearch
     container_name: mockstagram-kibana
@@ -114,6 +117,8 @@ services:
       - ELASTICSEARCH_HOSTS=http://elasticsearch:9200 # connect to Elasticsearch
     depends_on:
       - elasticsearch
+    networks:
+      - mockstagram-network
   neo4j:
     image: neo4j:5.25.1
     container_name: mockstagram-neo4j
@@ -131,10 +136,16 @@ services:
       - neo4j_logs:/logs # log saving volume
       - neo4j_import:/var/lib/neo4j/import # CSV 데이터 등 가져오기 파일 저장
       - neo4j_plugins:/plugins # Neo4j 플러그인 설치 위치
+    networks:
+      - mockstagram-network
   kafka: # ref: https://github.com/apache/kafka/blob/trunk/docker/examples/README.md
     image: apache/kafka:3.9.0
     hostname: kafka
     container_name: mockstagram-kafka
+    restart: unless-stopped
+    ports:
+      - "9092:9092"
+      - "9093:9093"
     environment:
       KAFKA_NODE_ID: 1
       KAFKA_PROCESS_ROLES: broker,controller
@@ -149,14 +160,10 @@ services:
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
       KAFKA_NUM_PARTITIONS: 1
       KAFKA_HEAP_OPTS: "-Xmx2G -Xms2G"  # JVM 힙 메모리 설정
-    ports:
-      - "9092:9092"
-      - "9093:9093"
     volumes:
       - ./init/kafka/file-input:/mnt/shared/config
       - ./init/kafka/secrets:/etc/kafka/secrets
       - /var/lib/kafka/data
-    restart: unless-stopped
     networks:
       - mockstagram-network
   kafka-connect:
@@ -165,16 +172,16 @@ services:
     hostname: kafka-connect
     ports:
       - "8083:8083"
-    depends_on:
-      - mysql
-      - mongodb
-      - kafka
     environment:
       - BOOTSTRAP_SERVERS=kafka:9092
       - GROUP_ID=debezium
       - CONFIG_STORAGE_TOPIC=DEBEZIUM_CONNECT_CONFIGS
       - OFFSET_STORAGE_TOPIC=DEBEZIUM_CONNECT_OFFSETS
       - STATUS_STORAGE_TOPIC=DEBEZIUM_CONNECT_STATUSES
+    depends_on:
+      - mysql
+      - mongodb
+      - kafka
     volumes:
       - ./init/kafka-connect/mongo-source-connector.json:/kafka/connect/mongo-source-connector.json
     networks:
@@ -186,6 +193,11 @@ services:
       - "8080:8080"
     environment:
       - AKHQ_OPTS=-Dakhq.storage.kafka.bootstrap-servers=kafka:9092
+    depends_on:
+      - kafka
+      - kafka-connect
+    volumes:
+      - ./init/akhq/application.yml:/app/application.yml
     networks:
       - mockstagram-network
 volumes:

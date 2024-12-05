@@ -1,0 +1,87 @@
+akhq:
+  # default kafka properties for each clients, available for admin / producer / consumer (optional)
+  clients-defaults:
+    consumer:
+      properties:
+        isolation.level: read_committed
+
+  # list of kafka cluster available for akhq
+  connections:
+    my-cluster-plain-text: # url friendly name for the cluster (letter, number, _, -, ... dot are not allowed here)
+      properties: # standard kafka properties (optional)
+        bootstrap.servers: "kafka:9092"
+#      schema-registry:
+#        url: "http://schema-registry:8085" # schema registry url (optional)
+#        type: "confluent" # schema registry type (optional). Supported types are "confluent" (default) or "tibco"
+#        # Basic Auth user / pass
+#        basic-auth-username: basic-auth-user
+#        basic-auth-password: basic-auth-pass
+#        properties: # standard kafka properties (optional)
+#          ssl.protocol: TLS
+      connect:
+        - name: connect-1
+          url: "http://kafka-connect:8083"
+          # Basic Auth user / pass (optional)
+          basic-auth-username: basic-auth-user
+          basic-auth-password: basic-auth-pass
+      # Ui Cluster Options (optional)
+  pagination:
+    page-size: 25 # number of elements per page (default : 25)
+    threads: 16 # Number of parallel threads to resolve page
+
+  # Configure avro-to-json serializer
+  avro-serializer:
+    json.serialization.inclusions: # ObjectMapper serialization inclusions used for avro-to-json conversion for display in the UI.
+      # Supports Enums in JsonInclude.Include from Jackson library
+      - NON_NULL
+
+  # Topic list display options (optional)
+  topic:
+    retention: 172800000 # default retention period when creating topic
+    partition: 3 #  default number of partition when creating topic
+    replication: 3 # default number of replicas when creating topic
+    internal-regexps: # list of regexp to be considered as internal (internal topic can't be deleted or updated)
+      - "^_.*$"
+      - "^.*_schemas$"
+      - "^.*connect-config$"
+      - "^.*connect-offsets$1"
+      - "^.*connect-status$"
+    stream-regexps: # list of regexp to be considered as internal stream topic
+      - "^.*-changelog$"
+      - "^.*-repartition$"
+      - "^.*-rekey$"
+    skip-consumer-groups: false # Skip loading consumer group information when showing topics
+    skip-last-record: false # Skip loading last record date information when showing topics
+    show-all-consumer-groups: false # Expand list of consumer groups instead of showing one.
+    # Retry options for topic operations
+    retry:
+      topic-exists: # Delay between retries when checking for existence of newly created topics. This is needed as it might take the kafka broker a few seconds to create new topics.
+        delay: "3s"
+
+  # Topic display data options (optional)
+  topic-data:
+    size: 50 # max record per page (default: 50)
+    poll-timeout: 1000 # The time, in milliseconds, spent waiting in poll if data is not available in the buffer.
+    kafka-max-message-length: 1000000 # Max message length allowed to send to UI when retrieving a list of records in bytes.
+
+  # Ui Global Options (optional)
+  ui-options:
+    menus:
+      acl: false
+    topic:
+      default-view: ALL  # default list view (ALL, HIDE_INTERNAL, HIDE_INTERNAL_STREAM, HIDE_STREAM). Overrides default
+      skip-consumer-groups: false # Skip loading consumer group information when showing topics. Overrides default
+      skip-last-record: true  # Skip loading last record date information when showing topics.  Overrides default
+      show-all-consumer-groups: true # Expand list of consumer groups instead of showing one. Overrides default.
+    topic-data:
+      sort: NEWEST # default sort order (OLDEST, NEWEST) (default: OLDEST).  Overrides default
+      date-time-format: ISO # format of message timestamps (RELATIVE, ISO) (default: RELATIVE)
+    # Data masking configuration
+    data-masking:
+      filters:
+        - description: "Masks value for secret-key fields"
+          search-regex: '"(secret-key)":".*"'
+          replacement: '"$1":"xxxx"'
+        - description: "Masks last digits of phone numbers"
+          search-regex: '"([\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?)[0-9]{4,6}"'
+          replacement: '"$1xxxx"'
