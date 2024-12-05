@@ -1,6 +1,6 @@
 # mockstagram
 
-A realistic Instagram clone web service project built on a microservices architecture.
+Instagram clone web service project built on a microservices architecture.
 
 ## Target Architecture
 ![Architecture](https://github.com/user-attachments/assets/c39e313b-5634-4299-887e-52cc1b5cad6a)
