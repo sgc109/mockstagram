@@ -29,7 +29,7 @@ The directories are organized by domain, and each microservice’s directory may
 * `/push`
   * Service for push notifications and scheduling
 * `/reaction`
-  * Service managing user interactions (e.g., likes, saves)
+  * Service managing user reactions (e.g., likes, saves)
 * `/recommend`
   * Service providing APIs for recommendation feeds
 * `/search`
