@@ -42,3 +42,4 @@ The directories are organized by domain, and each microservice’s directory may
 ## How to run
 
 * Run `./run-all.sh` script to run all services with docker compose.
+* Open Browser and type `localhost` on address bar. Then, the site will open.
