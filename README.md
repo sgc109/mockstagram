@@ -3,7 +3,7 @@
 Instagram clone web service project built on a microservices architecture.
 
 ## Target Architecture
-![Architecture](https://github.com/user-attachments/assets/c39e313b-5634-4299-887e-52cc1b5cad6a)
+![Architecture](https://github.com/user-attachments/assets/e1e82eaf-41f9-49b7-9bff-51e3355f5a14)
 
 ## Assumptions
 * Given that Instagram is a global service used by users worldwide, each type of database has a **primary DB in one region, with replica DBs in several other regions**. Servers handling user requests are assumed to be geographically distant from the primary DB. To simulate this, I plan to introduce **intentional network latency and design and implement the system with these considerations in mind**.
