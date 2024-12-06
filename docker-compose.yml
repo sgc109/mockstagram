@@ -144,8 +144,7 @@ services:
     container_name: mockstagram-kafka
     restart: unless-stopped
     ports:
-      - "9092:9092"
-      - "9093:9093"
+      - "19091:19091"
     environment:
       KAFKA_HEAP_OPTS: "-Xmx2G -Xms2G"  # JVM 힙 메모리 설정
     volumes:
