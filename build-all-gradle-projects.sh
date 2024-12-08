@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Gradle 프로젝트들이 있는 서브 디렉터리들
-subdirs=("content/api", "user/api")
+subdirs=("content" "user")  # 쉼표 뒤 공백 제거
 
 # 각 서브 디렉터리에서 jibDockerBuild 작업을 병렬로 실행
 for dir in "${subdirs[@]}"; do
