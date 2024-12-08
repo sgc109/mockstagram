@@ -1,0 +1,15 @@
+POST {{host}}/api/v1/posts
+Content-Type: application/json
+
+{
+  "requesterId": "1",
+  "post": {
+    "description": "This is description",
+    "type": "POST_TYPE_IMAGE",
+    "pages": [
+      {
+        "imageUrl": "https://placehold.co/400x400/000000/FFF"
+      }
+    ]
+  }
+}

@@ -1,1 +1,1 @@
-export const POST_URL_PREFIX = '/posts';
+export const POST_URL_PREFIX = '/v1/posts';

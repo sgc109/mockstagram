@@ -1,9 +1,8 @@
-import axios from 'axios';
-import { GetFeedResponse } from '@shared/feed/types';
-
-const API_URL = 'http://localhost:8082/api/feed';
+import {client} from '@core/api';
+import {GetFeedResponse} from '@shared/feed/types';
 
 export const getFeed = async (): Promise<GetFeedResponse> => {
-  const getFeedResponse = await axios.get<GetFeedResponse>(API_URL);
-  return getFeedResponse.data;
+    const getFeedResponse = await client.get<GetFeedResponse>("/v1/feed");
+
+    return getFeedResponse.data;
 };

@@ -4,6 +4,12 @@ Web BFF(Backend For Frontend) 서비스
 
 ## 실행 방법
 
+* 로컬 실행
+
+```shell
+npm start
+```
+
 * 이미지 빌드
 
 ```shell

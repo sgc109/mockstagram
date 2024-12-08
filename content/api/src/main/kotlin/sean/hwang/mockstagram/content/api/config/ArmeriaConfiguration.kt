@@ -43,6 +43,7 @@ class ArmeriaConfiguration {
             val grpcService =
                 GrpcService
                     .builder()
+                    .enableHttpJsonTranscoding(true)
                     .enableUnframedRequests(true)
                     .addService(ProtoReflectionService.newInstance())
                     .apply {

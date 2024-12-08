@@ -21,9 +21,20 @@ export interface Page {
 }
 
 export interface UploadPostRequest {
+    requesterId: number,
+    post: PostForm
+}
 
+export interface PostForm {
+    description: string,
+    type: string,
+    pages: PostPageForm[],
+}
+
+export interface PostPageForm {
+    imageUrl: string
 }
 
 export interface UploadPostResponse {
-
+    post: Post,
 }
