@@ -9,4 +9,7 @@ module.exports = {
             '@shared': resolve('../../shared'),
         },
     },
+    devServer: {
+        allowedHosts: 'all'
+    },
 };

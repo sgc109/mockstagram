@@ -211,6 +211,8 @@ services:
       - ./init/nginx/nginx.conf:/etc/nginx/nginx.conf:ro # Nginx 설정 파일
     depends_on:
       - minio
+      - web-frontend
+      - web-bff
     networks:
       - mockstagram-network
 volumes:
