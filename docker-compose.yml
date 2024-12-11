@@ -6,7 +6,7 @@ services:
       dockerfile: ./frontend/Dockerfile
     container_name: mockstagram-web-frontend
     ports:
-      - "80:8081"
+      - "8081:8081"
     depends_on:
       - web-bff
     networks:
@@ -200,6 +200,19 @@ services:
       - minio_data:/data
     command: server /data --console-address ":9001"
     restart: always
+    networks:
+      - mockstagram-network
+  nginx:
+    image: nginx:latest
+    container_name: mockstagram-nginx
+    ports:
+      - "80:80" # Nginx 웹 서버
+    volumes:
+      - ./init/nginx/nginx.conf:/etc/nginx/nginx.conf:ro # Nginx 설정 파일
+    depends_on:
+      - minio
+    networks:
+      - mockstagram-network
 volumes:
   mysql-data:
   redis_data:
