@@ -41,8 +41,8 @@ The directories are organized by domain, and each microservice’s directory may
 
 ## How to run
 
-* Run `./register-custom-domain.sh` once to add domains(`mockstagram.com` and `image.mockstagramcdn.com`) on `/etc/hosts` file.
-* Run `./run-all.sh` script to run all services with docker compose.
+* Run `./start.sh` script to run all services with docker compose.
+  * It will ask permission once to add domains(`mockstagram.com` and `image.mockstagramcdn.com`) on `/etc/hosts` file.
 * Open Browser and type `mockstagram.com` on address bar. Then, the site will open.
 
 ![image](https://github.com/user-attachments/assets/69b9f333-71ba-4550-9315-1d1b812d7111)
