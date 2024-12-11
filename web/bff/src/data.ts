@@ -6,13 +6,13 @@ export const getFeedResponse: GetFeedResponse = {
       id: 1,
       author: {
         id: 1,
-        username: "user1",
-        imageUrl: "https://placehold.co/50x50",
+        username: "spiderman",
+        imageUrl: "http://image.mockstagramcdn.com/my-test-bucket/spiderman-profile.png",
       },
       description: "Hello, mockstagram!",
       pages: [
         {
-          imageUrl: "https://placehold.co/300x300",
+          imageUrl: "http://image.mockstagramcdn.com/my-test-bucket/spiderman-post.png",
         }
       ],
       createdAt: "3h",
@@ -25,13 +25,13 @@ export const getFeedResponse: GetFeedResponse = {
       id: 2,
       author: {
         id: 2,
-        username: "user2",
-        imageUrl: "https://placehold.co/50x50",
+        username: "ironman",
+        imageUrl: "http://image.mockstagramcdn.com/my-test-bucket/ironman-profile.png",
       },
       description: "Nice to meet you, mockstagram!",
       pages: [
         {
-          imageUrl: "https://placehold.co/300x300",
+          imageUrl: "http://image.mockstagramcdn.com/my-test-bucket/ironman-post.png",
         }
       ],
       createdAt: "4h",
