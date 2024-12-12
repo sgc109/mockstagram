@@ -3,7 +3,7 @@
 Instagram clone web service project built on a microservices architecture.
 
 ## Target Architecture
-![Architecture](https://github.com/user-attachments/assets/e1e82eaf-41f9-49b7-9bff-51e3355f5a14)
+![Architecture](https://github.com/user-attachments/assets/beef331c-372d-4233-a4b6-d72446b1f72e)
 
 ## How to run
 
