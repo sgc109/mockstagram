@@ -10,12 +10,13 @@ const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
 // POST: Upload an image
-router.post('/', upload.single('image'), async (req, res) => {
+router.post('/', upload.single('image'), async (req, res): Promise<void> => {
     try {
         const file = req.file;
 
         if (!file) {
-            return res.status(400).send({ error: 'No file uploaded' });
+            res.status(400).send({ error: 'No file uploaded' });
+            return;
         }
 
         // Upload file to S3
