@@ -1,0 +1,9 @@
+POST {{host}}/upload
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="image"; filename="ironman-profile.png"
+Content-Type: image/png
+
+< ./resource/ironman-profile.png
+--boundary--

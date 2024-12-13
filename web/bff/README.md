@@ -1,28 +1,28 @@
 # web-bff
 
-Web BFF(Backend For Frontend) 서비스
+Web BFF(Backend For Frontend)
 
-## 실행 방법
+## How to run
 
-* 로컬 실행
+* Run on local
 
 ```shell
 npm start
 ```
 
-* 이미지 빌드
+* Build Docker image
 
 ```shell
 ./script/build.sh
 ```
 
-* 컨테이너 실행
+* Run Docker container
 
 ```shell
 ./script/run.sh
 ```
 
-* 컨테이너 종료 및 삭제
+* Stop and remove Docker container
 
 ```shell
 ./script/stop.sh

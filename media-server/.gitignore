@@ -1,42 +1,52 @@
-.gradle
+# TypeScript 빌드 결과물
+*.js
+*.js.map
+*.d.ts
+
+# Node.js 의존성
+node_modules/
+
+# 로그 파일
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 환경 설정 파일
+.env
+.env.*
+.env.*.local
+
+# 빌드 출력물
+dist/
 build/
-!gradle/wrapper/gradle-wrapper.jar
-!**/src/main/**/build/
-!**/src/test/**/build/
 
-### IntelliJ IDEA ###
-.idea/modules.xml
-.idea/jarRepositories.xml
-.idea/compiler.xml
-.idea/libraries/
-*.iws
-*.iml
-*.ipr
-out/
-!**/src/main/**/out/
-!**/src/test/**/out/
-
-### Eclipse ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-bin/
-!**/src/main/**/bin/
-!**/src/test/**/bin/
-
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-
-### VS Code ###
-.vscode/
-
-### Mac OS ###
+# OS별 임시 파일
 .DS_Store
+Thumbs.db
+
+# IDE/편집기 관련 파일
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 테스트 및 커버리지
+coverage/
+.nyc_output/
+
+# 패키지 관리자 파일
+package-lock.json
+yarn.lock
+
+# TypeScript 빌드 출력물
+*.tsbuildinfo
+
+# 압축 파일
+*.zip
+*.tar.gz
+
+# Docker 관련 파일
+.dockerignore
+
+# GitHub 워크플로우 캐시
+.github/

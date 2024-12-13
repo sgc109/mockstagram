@@ -20,6 +20,20 @@ services:
       - "8082:8082"
     networks:
       - mockstagram-network
+  media-server:
+    build:
+      context: ./media-server
+      dockerfile: Dockerfile
+    ports:
+      - "8084:8084"
+    env_file:
+      - ./media-server/.env.docker
+    depends_on:
+      - mongodb
+    volumes:
+      - .:/app
+    networks:
+      - mockstagram-network
   content-api:
     image: mockstagram-content-api
     container_name: mockstagram-content-api
@@ -82,6 +96,15 @@ services:
     volumes:
       - ./init/mongodb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
       - ./init/mongodb/mongo-keyfile:/etc/mongo-keyfile:ro
+    networks:
+      - mockstagram-network
+  dynamodb:
+    image: amazon/dynamodb-local
+    container_name: mockstagram-dynamodb
+    ports:
+      - "8000:8000"
+    volumes:
+      - dynamodb_data:/data
     networks:
       - mockstagram-network
   elasticsearch:
@@ -224,6 +247,7 @@ volumes:
   neo4j_import:
   neo4j_plugins:
   minio_data:
+  dynamodb_data:
 networks:
   mockstagram-network:
     driver: bridge
