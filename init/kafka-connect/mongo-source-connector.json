@@ -9,6 +9,13 @@
     "mongodb.password": "root",
     "database.include.list": "content",
     "collection.include.list": "content.posts",
-    "topic.prefix": "debezium.cdc.mongodb.content.posts"
+    "topic.prefix": "debezium.cdc.mongodb",
+    "transforms": "MongoFlatten,RenameId",
+    "transforms.MongoFlatten.type" : "io.debezium.connector.mongodb.transforms.ExtractNewDocumentState",
+    "transforms.MongoFlatten.drop.tombstones": "false",
+    "transforms.MongoFlatten.delete.handling.mode": "drop",
+    "transforms.MongoFlatten.add.headers": "op",
+    "transforms.RenameId.type": "org.apache.kafka.connect.transforms.ReplaceField$Value",
+    "transforms.RenameId.renames": "_id:id"
   }
 }

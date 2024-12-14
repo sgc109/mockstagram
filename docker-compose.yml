@@ -113,14 +113,12 @@ services:
     container_name: mockstagram-elasticsearch
     ports:
       - "9200:9200" # Elasticsearch API
-      - "9300:9300" # 클러스터 통신
+      - "9300:9300" # Communication between nodes
     environment:
-      - discovery.type=single-node # single node cluster setting
-      - xpack.security.enabled=false
-      - bootstrap.memory_lock=true # For performance improvement
-      - "ES_JAVA_OPTS=-Xms1g -Xmx1g" # JVM 힙 메모리 설정
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
     volumes:
       - es_data:/usr/share/elasticsearch/data
+      - ./init/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
     ulimits:
       memlock:
         soft: -1
@@ -195,6 +193,8 @@ services:
       - kafka
     volumes:
       - ./init/kafka-connect/mongo-source-connector.json:/kafka/connect/mongo-source-connector.json
+      - ./init/kafka-connect/es-sink-connector.json:/kafka/connect/es-sink-connector.json
+      - ./init/kafka-connect/elasticsearch-sink:/kafka/connect/kafka-connect-elasticsearch
     networks:
       - mockstagram-network
   akhq:

@@ -1,0 +1,8 @@
+cluster.name: mockstagram-elasticsearch
+node.name: node-1
+network.host: 0.0.0.0  # Permit all incoming connections
+discovery.type: single-node
+xpack.security.enabled: false
+bootstrap.memory_lock: true
+#index.number_of_replicas: 1
+#action.auto_create_index: false
