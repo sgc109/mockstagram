@@ -2,9 +2,8 @@
   "name": "mongo-source-connector",
   "config": {
     "connector.class": "io.debezium.connector.mongodb.MongoDbConnector",
-    "mongodb.connection.string": "mongodb://root:root@mongodb:27017",
+    "mongodb.connection.string": "mongodb://root:root@mongodb:27017/?replicaSet=rs0",
     "tasks.max": "1",
-    "mongodb.hosts": "rs0/mongodb:27017",
     "mongodb.name": "mongodb",
     "mongodb.user": "root",
     "mongodb.password": "root",

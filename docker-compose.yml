@@ -42,7 +42,7 @@ services:
     depends_on:
       - mongodb
     environment:
-      MONGODB_DATASOURCE_URL: mongodb://content_user:content_pw@mongodb:27017/content
+      MONGODB_DATASOURCE_URL: mongodb://content_user:content_pw@mongodb:27017/content?replicaSet=rs0&readPreference=primary
     networks:
       - mockstagram-network
   user-api:
@@ -96,6 +96,7 @@ services:
     volumes:
       - ./init/mongodb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
       - ./init/mongodb/mongo-keyfile:/etc/mongo-keyfile:ro
+      - mongodb-data:/data/db
     networks:
       - mockstagram-network
   dynamodb:
@@ -177,7 +178,7 @@ services:
     networks:
       - mockstagram-network
   kafka-connect:
-    image: debezium/connect:2.7.0.Final
+    image: debezium/connect:2.7.3.Final
     container_name: mockstagram-kafka-connect
     hostname: kafka-connect
     ports:
@@ -240,6 +241,7 @@ services:
       - mockstagram-network
 volumes:
   mysql-data:
+  mongodb-data:
   redis_data:
   es_data:
   neo4j_data:
