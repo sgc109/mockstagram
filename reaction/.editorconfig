@@ -1,0 +1,52 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_size = unset
+indent_style = space
+trim_trailing_whitespace = true
+insert_final_newline = true
+max_line_length = 120
+tab_width = unset
+
+[*.{yaml,yml}]
+tab_width = 2
+indent_size = 2
+
+[*.{kt,kts}]
+# indent 가 의도적으로 8 space 가 되는 상황이 종종 발생해 off
+# indent_size = 4
+tab_width = 4
+
+# Options for IntelliJ IDEA settings
+ij_kotlin_code_style_defaults = KOTLIN_OFFICIAL
+
+ij_kotlin_line_comment_at_first_column = false
+ij_kotlin_line_comment_add_space = true
+
+# These options can keep to use single name import
+ij_kotlin_name_count_to_use_star_import = 2147483647
+ij_kotlin_name_count_to_use_star_import_for_members = 2147483647
+
+ij_kotlin_keep_blank_lines_in_declarations = 1
+ij_kotlin_keep_blank_lines_in_code = 1
+ij_kotlin_keep_blank_lines_before_right_brace = 0
+
+# optional but recommended
+ij_kotlin_align_multiline_parameters = false
+ij_continuation_indent_size = 4
+ij_kotlin_allow_trailing_comma = true
+ij_kotlin_allow_trailing_comma_on_call_site = true
+
+# 우변이 Multi Line일 경우 새로운 Line에서 시작 (off)
+ktlint_standard_multiline-expression-wrapping = disabled
+# 함수 파라미터 각각 새로운 Line 할당 (off)
+# 함수 정의 시 반환 값 Line을 새로운 Line에서 시작 (off)
+ktlint_standard_function-signature = disabled
+
+## 기존 코드 변경점이 너무 많거나 가독성에 관해 내부 논의 후 disabled 결정
+ktlint_standard_chain-method-continuation = disabled
+ktlint_standard_function-expression-body = disabled
+ktlint_standard_class-signature = disabled
+ktlint_standard_no-empty-first-line-in-class-body = disabled

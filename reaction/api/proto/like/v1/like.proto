@@ -1,0 +1,22 @@
+syntax = "proto3";
+package like.v1;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+
+option java_multiple_files = true;
+option java_package = "sean.hwang.mockstagram.reaction.api.like.v1";
+
+message Like {
+  string id = 1;
+  google.protobuf.StringValue user_id = 2;
+  TargetType target_type = 3;
+  google.protobuf.Timestamp created_at = 4;
+  google.protobuf.Timestamp updated_at = 5;
+  google.protobuf.Int64Value like_count = 6;
+
+  enum TargetType {
+    LIKE_TARGET_TYPE_UNSPECIFIED = 0;
+    LIKE_TARGET_TYPE_POST = 1;
+  }
+}
