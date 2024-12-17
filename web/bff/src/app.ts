@@ -17,7 +17,7 @@ app.get('/api/v1/feed', (req: Request, res: Response) => {
     res.json(getFeedResponse);
 });
 
-app.use('/api/v1/likes', likeRoutes);
+app.use('/api/v1', likeRoutes);
 app.use('/api/v1/posts', postRoutes);
 app.use('/api/v1/auth', authRoutes);
 

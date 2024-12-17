@@ -1,5 +1,15 @@
 ### like post
-POST {{host}}/api/v1/likes
+POST {{host}}/api/v1/like
+Authorization: Bearer {{jwt}}
+Content-Type: application/json
+
+{
+  "targetId": "67506d607eff4332976ce23d",
+  "targetType": "LIKE_TARGET_TYPE_POST"
+}
+
+### unlike post
+POST {{host}}/api/v1/unlike
 Authorization: Bearer {{jwt}}
 Content-Type: application/json
 

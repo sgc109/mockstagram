@@ -7,17 +7,12 @@ export interface Like {
     updatedAt: string,
 }
 
-export interface PostAuthor {
-    id: number,
-    username: string,
-    imageUrl: string,
-}
-
-export interface Page {
-    imageUrl: string
-}
-
 export interface CreateLikeRequest {
+    requesterId: string,
+    like: LikeForm
+}
+
+export interface DeleteLikeRequest {
     requesterId: string,
     like: LikeForm
 }

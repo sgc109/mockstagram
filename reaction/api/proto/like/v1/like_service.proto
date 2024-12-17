@@ -12,14 +12,14 @@ option java_package = "sean.hwang.mockstagram.reaction.api.post.v1";
 service LikeService {
   rpc CreateLike (CreateLikeRequest) returns (Like) {
     option (google.api.http) = {
-      post: "/v1/likes",
+      post: "/v1/like",
       body: "*"
     };
   }
 
   rpc DeleteLike (DeleteLikeRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {
-      delete: "/v1/likes",
+      post: "/v1/unlike",
       body: "*"
     };
   }
