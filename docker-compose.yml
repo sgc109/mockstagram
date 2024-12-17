@@ -45,6 +45,17 @@ services:
       MONGODB_DATASOURCE_URL: mongodb://content_user:content_pw@mongodb:27017/content?replicaSet=rs0&readPreference=primary
     networks:
       - mockstagram-network
+  reaction-api:
+    image: mockstagram-reaction-api
+    container_name: mockstagram-reaction-api
+    ports:
+      - "50053:50053"
+    depends_on:
+      - mysql
+    environment:
+      JDBC_DATASOURCE_URL: jdbc:mysql://mysql:3306/reaction
+    networks:
+      - mockstagram-network
   user-api:
     image: mockstagram-user-api
     container_name: mockstagram-user-api
