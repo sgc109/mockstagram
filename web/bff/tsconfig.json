@@ -1,16 +1,30 @@
 {
   "extends": "./tsconfig.paths.json",
   "compilerOptions": {
-    "module": "ESNext",               // ESM 모듈 사용
-    "moduleResolution": "node",       // Node.js 방식의 모듈 해석
-    "target": "ESNext",               // 최신 ECMAScript 기능 사용
-    "esModuleInterop": true,          // CommonJS 모듈 호환
-    "skipLibCheck": true,             // 라이브러리 타입 검사 생략
-    "strict": true                    // TypeScript의 엄격한 검사
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "target": "ESNext",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "outDir": "dist",
+    "typeRoots": [
+      "./types",
+      "node_modules/@types"
+    ],
+    "types": [
+      "node",
+      "express"
+    ]
   },
   "include": [
-    "src/**/*.ts",                    // TypeScript 파일 포함
+    "src/**/*.ts",
     "src/**/*.tsx",
+    "types/**/*.d.ts",
     "tsconfig.paths.json"
+  ],
+  "exclude": [
+    "node_modules"
   ]
 }

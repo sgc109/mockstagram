@@ -1,6 +1,6 @@
 import express, {Request, Response} from 'express';
 import {UploadPostRequest} from "@shared/post/types";
-import {createPost} from "./service.js";
+import {createPost} from "./service";
 
 const router = express.Router();
 

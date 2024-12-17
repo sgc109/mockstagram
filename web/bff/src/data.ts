@@ -1,4 +1,4 @@
-import { GetFeedResponse} from '../../shared/feed/types'
+import { GetFeedResponse} from '@shared/feed/types'
 
 export const getFeedResponse: GetFeedResponse = {
   posts: [

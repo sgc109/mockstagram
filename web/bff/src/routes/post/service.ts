@@ -1,4 +1,4 @@
-import { uploadPost } from './client.js';
+import { uploadPost } from './client';
 import {PostForm, UploadPostRequest, UploadPostResponse} from '@shared/post/types';
 
 export async function createPost(requesterId: number, postForm: PostForm): Promise<UploadPostResponse> {

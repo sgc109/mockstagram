@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {CONTENT_API_URL} from '../../config.js'
+import {CONTENT_API_URL} from '@/config'
 import {PostForm, UploadPostResponse} from '@shared/post/types';
 
 export async function uploadPost(requesterId: number, postForm: PostForm): Promise<UploadPostResponse> {
