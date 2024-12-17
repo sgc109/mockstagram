@@ -12,8 +12,7 @@ router.post('/token', async (req: Request, res: Response) => {
         return
     }
 
-    // JWT 발급
-    const token = generateToken({ userId });
+    const token = generateToken({ sub: userId });
     res.json({ token });
 });
 
