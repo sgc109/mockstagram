@@ -1,4 +1,4 @@
-###
+### issue 10 years JWT with given userId
 POST {{host}}/api/v1/auth/token
 Content-Type: application/json
 
