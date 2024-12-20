@@ -8,13 +8,13 @@ export interface Like {
 }
 
 export interface CreateLikeRequest {
-    requesterId: string,
-    like: LikeForm
+    targetType: LikeTargetType,
+    targetId: string
 }
 
 export interface DeleteLikeRequest {
-    requesterId: string,
-    like: LikeForm
+    targetType: LikeTargetType,
+    targetId: string
 }
 
 export interface LikeForm {

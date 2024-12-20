@@ -14,7 +14,7 @@ router.post('/like', authenticateJWT, async (req: Request, res: Response) => {
         targetType: req.body.targetType,
         targetId: req.body.targetId
     }
-    const response = like(req.userId!, form);
+    const response = await like(req.userId!, form);
 
     res.json(response)
 });
@@ -29,9 +29,10 @@ router.post('/unlike', authenticateJWT, async (req: Request, res: Response) => {
         targetType: req.body.targetType,
         targetId: req.body.targetId
     }
-    const response = unlike(req.userId!, form);
 
-    res.json(response)
+    await unlike(req.userId!, form);
+
+    res.sendStatus(200);
 });
 
 export default router;
