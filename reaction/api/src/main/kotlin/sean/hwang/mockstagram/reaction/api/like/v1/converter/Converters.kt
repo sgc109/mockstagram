@@ -14,6 +14,7 @@ object Converters {
         val entity = this
         return like {
             this.id = entity.id.toString()
+            this.targetId = entity.targetId.toStringValue()
             this.targetType = entity.targetType.toProto()
             this.likerId = entity.likerId.toStringValue()
             this.createdAt = entity.createdAt.toTimestamp()
