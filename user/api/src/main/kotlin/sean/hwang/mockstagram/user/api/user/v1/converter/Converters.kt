@@ -8,22 +8,22 @@ import sean.hwang.mockstagram.user.api.util.toStringValue
 import sean.hwang.mockstagram.user.api.util.toTimestamp
 
 object Converters {
-    fun sean.hwang.mockstagram.user.domain.user.document.User.toProto(): User {
-        val document = this
+    fun sean.hwang.mockstagram.user.domain.user.entity.User.toProto(): User {
+        val entity = this
         return user {
-            this.id = document.id.toString()
-            this.username = document.username.toStringValue()
-            this.name = document.name.toStringValue()
-            document.bio?.let { this.bio = it.toStringValue() }
-            document.imageUrl?.let { this.imageUrl = it.toStringValue() }
-            document.thumbnailUrl?.let { this.thumbnailUrl = it.toStringValue() }
-            document.websiteUrl?.let { this.websiteUrl = it.toStringValue() }
-            this.postCount = document.postCount.toInt64Value()
-            this.followerCount = document.followerCount.toInt64Value()
-            this.followingCount = document.followingCount.toInt64Value()
-            this.isHidden = document.isHidden.toBoolValue()
-            document.createdAt?.let { this.createdAt = it.toTimestamp() }
-            document.updatedAt?.let { this.updatedAt = it.toTimestamp() }
+            this.id = entity.id.toString()
+            this.username = entity.username.toStringValue()
+            this.name = entity.name.toStringValue()
+            entity.bio?.let { this.bio = it.toStringValue() }
+            entity.imageUrl?.let { this.imageUrl = it.toStringValue() }
+            entity.thumbnailUrl?.let { this.thumbnailUrl = it.toStringValue() }
+            entity.websiteUrl?.let { this.websiteUrl = it.toStringValue() }
+            this.postCount = entity.postCount.toInt64Value()
+            this.followerCount = entity.followerCount.toInt64Value()
+            this.followingCount = entity.followingCount.toInt64Value()
+            this.isHidden = entity.isHidden.toBoolValue()
+            this.createdAt = entity.createdAt.toTimestamp()
+            this.updatedAt = entity.updatedAt.toTimestamp()
         }
     }
 }

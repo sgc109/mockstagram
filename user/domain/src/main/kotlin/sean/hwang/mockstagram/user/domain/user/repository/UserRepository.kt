@@ -1,9 +1,8 @@
 package sean.hwang.mockstagram.user.domain.user.repository
 
-import org.bson.types.ObjectId
-import org.springframework.data.mongodb.repository.ReactiveMongoRepository
-import sean.hwang.mockstagram.user.domain.user.document.User
+import org.springframework.data.jpa.repository.JpaRepository
+import sean.hwang.mockstagram.user.domain.user.entity.User
 
-interface UserRepository : ReactiveMongoRepository<User, ObjectId> {
-    suspend fun findByUsername(username: String): User?
+interface UserRepository : JpaRepository<User, Long> {
+    fun findByUsername(username: String): User?
 }

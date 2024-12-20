@@ -1,8 +1,10 @@
 plugins {
     kotlin("plugin.allopen")
     kotlin("plugin.spring")
+    id("kotlin-jpa")
     id("org.springframework.boot")
     id("io.spring.dependency-management")
+    id("com.google.devtools.ksp")
 }
 
 group = "sean.hwang"
@@ -15,12 +17,10 @@ java {
 }
 
 dependencies {
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
 
-    implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
-    implementation("org.springframework.boot:spring-boot-starter-data-mongodb-reactive")
-
-    api("org.mongodb:bson")
+    api("org.springframework.boot:spring-boot-starter-data-jpa")
 
     testImplementation(kotlin("test"))
 }

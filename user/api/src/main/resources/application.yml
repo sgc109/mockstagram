@@ -2,12 +2,30 @@ server:
   port: 50054
 
 spring:
-  data:
-    mongodb:
-      uri: ${MONGODB_DATASOURCE_URL:mongodb://user_user:user_pw@localhost:27017/user}
-      auto-index-creation: true
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        hbm2ddl.auto: update
+        show_sql: true
+        format_sql: true
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+  datasource:
+    url: ${JDBC_DATASOURCE_URL:jdbc:mysql://localhost:3306/user}
+    username: user_user
+    password: user_pw
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+    hikari:
+      pool-name: HikariCP
+      maximum-pool-size: 10
+      minimum-idle: 5
+      idle-timeout: 30000
+      max-lifetime: 1800000
+      connection-timeout: 20000
+      validation-timeout: 5000
+
 logging:
   level:
     org.springframework: DEBUG
     com.linecorp.armeria: DEBUG
-
