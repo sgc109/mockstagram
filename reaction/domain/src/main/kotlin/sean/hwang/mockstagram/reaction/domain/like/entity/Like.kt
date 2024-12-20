@@ -21,7 +21,7 @@ import java.time.Instant
     indexes = [
         Index(
             name = "uk_likes_target_id_01",
-            columnList = "targetId,targetType,userId",
+            columnList = "targetId,targetType,likerId",
             unique = true,
         ),
     ]
@@ -36,8 +36,8 @@ data class Like(
     @Enumerated(EnumType.STRING)
     @Column(name = "target_type", nullable = false)
     val targetType: LikeTargetType,
-    @Column(name = "user_id", nullable = false)
-    val userId: String,
+    @Column(name = "liker_id", nullable = false)
+    val likerId: Long,
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
     val createdAt: Instant = Instant.now(),

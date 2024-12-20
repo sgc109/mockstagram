@@ -11,6 +11,7 @@ import sean.hwang.mockstagram.reaction.api.post.v1.CreateLikeRequest
 import sean.hwang.mockstagram.reaction.api.post.v1.DeleteLikeRequest
 import sean.hwang.mockstagram.reaction.api.post.v1.LikeServiceGrpcKt
 import sean.hwang.mockstagram.reaction.api.util.notNullValue
+import sean.hwang.mockstagram.reaction.api.util.toLong
 import sean.hwang.mockstagram.reaction.domain.like.service.LikeService
 
 @Component
@@ -30,7 +31,7 @@ class LikeGrpcService(
             likeService.deleteLike(
                 targetId = request.targetId.notNullValue(),
                 targetType = request.targetType.toDomain(),
-                userId = request.requesterId.notNullValue(),
+                likerId = request.requesterId.toLong(),
             )
         }
 

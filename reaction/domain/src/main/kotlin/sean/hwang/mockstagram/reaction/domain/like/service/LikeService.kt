@@ -15,11 +15,11 @@ class LikeService(
         likeRepository.save(like)
 
     @Transactional
-    fun deleteLike(targetId: String, targetType: LikeTargetType, userId: String) {
-        likeRepository.deleteByTargetIdAndTargetTypeAndUserId(
+    fun deleteLike(targetId: String, targetType: LikeTargetType, likerId: Long) {
+        likeRepository.deleteByTargetIdAndTargetTypeAndLikerId(
             targetId = targetId,
             targetType = targetType,
-            userId = userId,
+            likerId = likerId,
         )
     }
 }

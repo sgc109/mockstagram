@@ -5,5 +5,5 @@ import sean.hwang.mockstagram.reaction.domain.like.entity.Like
 import sean.hwang.mockstagram.reaction.domain.like.entity.LikeTargetType
 
 interface LikeRepository : JpaRepository<Like, Long> {
-    fun deleteByTargetIdAndTargetTypeAndUserId(targetId: String, targetType: LikeTargetType, userId: String)
+    fun deleteByTargetIdAndTargetTypeAndLikerId(targetId: String, targetType: LikeTargetType, likerId: Long)
 }
