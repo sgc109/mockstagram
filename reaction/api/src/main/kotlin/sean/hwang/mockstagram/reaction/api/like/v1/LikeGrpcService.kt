@@ -17,6 +17,7 @@ import sean.hwang.mockstagram.reaction.api.post.v1.likeStat
 import sean.hwang.mockstagram.reaction.api.util.notNullValue
 import sean.hwang.mockstagram.reaction.api.util.toBoolValue
 import sean.hwang.mockstagram.reaction.api.util.toLong
+import sean.hwang.mockstagram.reaction.api.util.toLongOrNull
 import sean.hwang.mockstagram.reaction.api.util.toUInt64Value
 import sean.hwang.mockstagram.reaction.domain.like.service.LikeService
 
@@ -45,17 +46,22 @@ class LikeGrpcService(
     }
 
     override suspend fun batchGetLikeStats(request: BatchGetLikeStatsRequest): BatchGetLikeStatsResponse {
+        val requesterId = request.requesterId.toLongOrNull()
+
         val likeTargets = request.likeTargetsList.map { it.toDomain() }
         val likeCounts = withContext(Dispatchers.IO) {
             likeService.batchGetLikeCounts(likeTargets)
         }
 
-        val likes = withContext(Dispatchers.IO) {
-            likeService.batchGetLikes(
-                likeTargets = likeTargets,
-                likerId = request.requesterId.toLong()
-            )
+        val likes = requesterId?.let {
+            withContext(Dispatchers.IO) {
+                likeService.batchGetLikes(
+                    likeTargets = likeTargets,
+                    likerId = it,
+                )
+            }
         }
+
         return batchGetLikeStatsResponse {
             this.likeStats += likeTargets.mapNotNull { likeTarget ->
                 val likeCount = likeCounts[likeTarget]
@@ -63,7 +69,9 @@ class LikeGrpcService(
                     likeStat {
                         this.target = likeTarget.toProto()
                         this.likeCount = it.toUInt64Value()
-                        this.isLiked = (likeTarget in likes).toBoolValue()
+                        likes?.let {
+                            this.isLiked = (likeTarget in it).toBoolValue()
+                        }
                     }
                 }
             }
