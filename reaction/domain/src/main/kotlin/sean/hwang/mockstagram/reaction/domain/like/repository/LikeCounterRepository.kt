@@ -6,4 +6,6 @@ import sean.hwang.mockstagram.reaction.domain.like.entity.LikeTargetType
 
 interface LikeCounterRepository : JpaRepository<LikeCounter, Long> {
     fun findByTargetIdAndTargetType(targetId: String, targetType: LikeTargetType): LikeCounter?
+
+    fun findAllByTargetIdInAndTargetType(targetIds: List<String>, targetType: LikeTargetType): List<LikeCounter>
 }

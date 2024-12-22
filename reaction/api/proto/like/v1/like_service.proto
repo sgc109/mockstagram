@@ -23,6 +23,33 @@ service LikeService {
       body: "*"
     };
   }
+
+  rpc BatchGetLikeStats (BatchGetLikeStatsRequest) returns (BatchGetLikeStatsResponse) {
+    option (google.api.http) = {
+      post: "/v1/likes:batchGetStats",
+      body: "*"
+    };
+  }
+}
+
+message BatchGetLikeStatsRequest {
+  google.protobuf.StringValue requester_id = 1;
+  repeated LikeTarget like_targets = 2;
+}
+
+message BatchGetLikeStatsResponse {
+  repeated LikeStat like_stats = 1;
+}
+
+message LikeTarget {
+  google.protobuf.StringValue id = 1;
+  Like.TargetType type = 2;
+}
+
+message LikeStat {
+  LikeTarget target = 1;
+  google.protobuf.UInt64Value like_count = 2;
+  google.protobuf.BoolValue is_liked = 3;
 }
 
 message CreateLikeRequest {

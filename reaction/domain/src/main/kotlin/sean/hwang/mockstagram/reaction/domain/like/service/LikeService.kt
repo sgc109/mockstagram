@@ -2,6 +2,7 @@ package sean.hwang.mockstagram.reaction.domain.like.service
 
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import sean.hwang.mockstagram.reaction.domain.like.dto.LikeTarget
 import sean.hwang.mockstagram.reaction.domain.like.entity.Like
 import sean.hwang.mockstagram.reaction.domain.like.entity.LikeCounter
 import sean.hwang.mockstagram.reaction.domain.like.entity.LikeTargetType
@@ -9,6 +10,7 @@ import sean.hwang.mockstagram.reaction.domain.like.repository.LikeCounterReposit
 import sean.hwang.mockstagram.reaction.domain.like.repository.LikeRepository
 
 @Service
+@Transactional(readOnly = true)
 class LikeService(
     private val likeRepository: LikeRepository,
     private val likeCounterRepository: LikeCounterRepository,
@@ -39,5 +41,28 @@ class LikeService(
         likeCounterRepository.save(likeCounter.decrement())
 
         likeRepository.delete(like)
+    }
+
+    fun batchGetLikeCounts(likeTargets: List<LikeTarget>): Map<LikeTarget, Long> {
+        val postLikeCounts = filterLikeTargets(likeTargets, LikeTargetType.POST)
+            .let {
+                likeCounterRepository.findAllByTargetIdInAndTargetType(targetIds = it, targetType = LikeTargetType.POST)
+            }
+
+        return postLikeCounts.associateBy(
+            { LikeTarget(it.targetId, LikeTargetType.POST) },
+            { it.count }
+        )
+    }
+
+    fun batchGetLikes(likeTargets: List<LikeTarget>, likerId: Long): Set<LikeTarget> {
+        val postLikes = filterLikeTargets(likeTargets, LikeTargetType.POST).let {
+            likeRepository.findAllByTargetIdInAndTargetTypeAndLikerId(it, LikeTargetType.POST, likerId)
+        }
+        return postLikes.map { LikeTarget(it.targetId, LikeTargetType.POST) }.toSet()
+    }
+
+    private fun filterLikeTargets(likeTargets: List<LikeTarget>, targetType: LikeTargetType): List<String> {
+        return likeTargets.filter { it.targetType == targetType }.map { it.targetId }
     }
 }

@@ -4,6 +4,8 @@ import sean.hwang.mockstagram.reaction.api.like.v1.Like
 import sean.hwang.mockstagram.reaction.api.like.v1.Like.TargetType
 import sean.hwang.mockstagram.reaction.api.like.v1.like
 import sean.hwang.mockstagram.reaction.api.post.v1.CreateLikeRequest
+import sean.hwang.mockstagram.reaction.api.post.v1.LikeTarget
+import sean.hwang.mockstagram.reaction.api.post.v1.likeTarget
 import sean.hwang.mockstagram.reaction.api.util.notNullValue
 import sean.hwang.mockstagram.reaction.api.util.toLong
 import sean.hwang.mockstagram.reaction.api.util.toStringValue
@@ -41,4 +43,19 @@ object Converters {
         when (this) {
             sean.hwang.mockstagram.reaction.domain.like.entity.LikeTargetType.POST -> TargetType.LIKE_TARGET_TYPE_POST
         }
+
+    fun LikeTarget.toDomain() =
+        sean.hwang.mockstagram.reaction.domain.like.dto.LikeTarget(
+            targetId = this.id.notNullValue(),
+            targetType = this.type.toDomain(),
+        )
+
+    fun sean.hwang.mockstagram.reaction.domain.like.dto.LikeTarget.toProto(): LikeTarget {
+        val dto = this
+
+        return likeTarget {
+            this.id = dto.targetId.toStringValue()
+            this.type = dto.targetType.toProto()
+        }
+    }
 }
