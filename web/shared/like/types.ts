@@ -17,9 +17,9 @@ export interface DeleteLikeRequest {
     targetId: string
 }
 
-export interface LikeForm {
-    targetType: LikeTargetType,
-    targetId: string
+export interface LikeTarget {
+    id: string,
+    type: LikeTargetType,
 }
 
 export enum LikeTargetType {
@@ -28,4 +28,19 @@ export enum LikeTargetType {
 
 export interface CreateLikeResponse {
     like: Like
+}
+
+export interface BatchGetLikeStatsRequest {
+    requesterId: number,
+    likeTargets: LikeTarget[]
+}
+
+export interface BatchGetLikeStatsResponse {
+    likeStats: LikeStat[]
+}
+
+export interface LikeStat {
+    target: LikeTarget,
+    likeCount: number,
+    isLiked: boolean
 }

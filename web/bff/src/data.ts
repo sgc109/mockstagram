@@ -3,7 +3,7 @@ import { GetFeedResponse} from '@shared/feed/types'
 export const getFeedResponse: GetFeedResponse = {
   posts: [
     {
-      id: 1,
+      id: '000000000000000000000000',
       author: {
         id: 1,
         username: "spiderman",
@@ -22,7 +22,7 @@ export const getFeedResponse: GetFeedResponse = {
       isSaved: false,
     },
     {
-      id: 2,
+      id: '000000000000000000000001',
       author: {
         id: 2,
         username: "ironman",

@@ -1,5 +1,5 @@
 export interface Post {
-    id: number,
+    id: string,
     author: PostAuthor,
     description: string,
     pages: Page[],

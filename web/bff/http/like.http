@@ -4,7 +4,7 @@ Authorization: Bearer {{jwt}}
 Content-Type: application/json
 
 {
-  "targetId": "67506d607eff4332976ce23d",
+  "targetId": "000000000000000000000000",
   "targetType": "LIKE_TARGET_TYPE_POST"
 }
 
@@ -14,6 +14,6 @@ Authorization: Bearer {{jwt}}
 Content-Type: application/json
 
 {
-  "targetId": "67506d607eff4332976ce23d",
+  "targetId": "000000000000000000000000",
   "targetType": "LIKE_TARGET_TYPE_POST"
 }

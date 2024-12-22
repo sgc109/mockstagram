@@ -4,7 +4,7 @@ Content-Type: application/json; charset=utf-8; protocol=gRPC
 
 {
   "requester_id": 1,
-  "target_id": "67506d607eff4332976ce23d",
+  "target_id": "000000000000000000000000",
   "target_type": "LIKE_TARGET_TYPE_POST"
 }
 
@@ -14,7 +14,7 @@ Content-Type: application/json; charset=utf-8; protocol=gRPC
 
 {
   "requester_id": 1,
-  "target_id": "67506d607eff4332976ce23d",
+  "target_id": "000000000000000000000000",
   "target_type": "LIKE_TARGET_TYPE_POST"
 }
 
@@ -26,7 +26,7 @@ Content-Type: application/json; charset=utf-8; protocol=gRPC
   "requester_id": 1,
   "like_targets": [
     {
-      "id": "67506d607eff4332976ce23d",
+      "id": "000000000000000000000000",
       "type": "LIKE_TARGET_TYPE_POST"
     }
   ]
