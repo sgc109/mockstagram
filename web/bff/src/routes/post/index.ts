@@ -11,7 +11,7 @@ router.post('/', async (req: Request, res: Response) => {
         post: req.body.post
     }
 
-    const response = createPost(request.requesterId, request.post);
+    const response = await createPost(request.requesterId, request.post);
 
     res.json(response)
 });
