@@ -18,6 +18,13 @@ services:
     container_name: mockstagram-web-bff
     ports:
       - "8082:8082"
+    depends_on:
+      - media-server
+      - content-api
+      - reaction-api
+      - user-api
+    env_file:
+      - ./web/bff/.env.docker
     networks:
       - mockstagram-network
   media-server:
@@ -29,7 +36,7 @@ services:
     env_file:
       - ./media-server/.env.docker
     depends_on:
-      - mongodb
+      - dynamodb
     volumes:
       - .:/app
     networks:
@@ -53,7 +60,7 @@ services:
     depends_on:
       - mysql
     environment:
-      JDBC_DATASOURCE_URL: jdbc:mysql://mysql:3306/reaction
+      JDBC_DATASOURCE_URL: jdbc:mysql://mysql:3306/reaction?user=reaction_user&password=reaction_pw
     networks:
       - mockstagram-network
   user-api:
@@ -62,10 +69,9 @@ services:
     ports:
       - "50054:50054"
     depends_on:
-      - mongodb
-      - neo4j
+      - mysql
     environment:
-      MONGODB_DATASOURCE_URL: mongodb://user_user:user_pw@mongodb:27017/user
+      JDBC_DATASOURCE_URL: jdbc:mysql://mysql:3306/user?user=user_user&password=user_pw
     networks:
       - mockstagram-network
   redis:
@@ -119,6 +125,25 @@ services:
       - dynamodb_data:/data
     networks:
       - mockstagram-network
+  #  neo4j:
+  #    image: neo4j:5.25.1
+  #    container_name: mockstagram-neo4j
+  #    ports:
+  #      - "7474:7474"
+  #      - "7687:7687"
+  #    environment:
+  #      NEO4J_AUTH: neo4j/root # username / password
+  #      NEO4J_dbms_security_auth__minimum__password__length: 4
+  #      NEO4J_dbms_memory_pagecache_size: 512M # cache size (e.g. 512MB)
+  #      NEO4J_dbms_memory_heap_initial__size: 1G # initial heap memory
+  #      NEO4J_dbms_memory_heap_max__size: 1G # max heap memory
+  #    volumes:
+  #      - neo4j_data:/data # data saving volume
+  #      - neo4j_logs:/logs # log saving volume
+  #      - neo4j_import:/var/lib/neo4j/import # CSV 데이터 등 가져오기 파일 저장
+  #      - neo4j_plugins:/plugins # Neo4j 플러그인 설치 위치
+  #    networks:
+  #      - mockstagram-network
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.16.1
     container_name: mockstagram-elasticsearch
@@ -150,25 +175,6 @@ services:
       - ELASTICSEARCH_HOSTS=http://elasticsearch:9200 # connect to Elasticsearch
     depends_on:
       - elasticsearch
-    networks:
-      - mockstagram-network
-  neo4j:
-    image: neo4j:5.25.1
-    container_name: mockstagram-neo4j
-    ports:
-      - "7474:7474"
-      - "7687:7687"
-    environment:
-      NEO4J_AUTH: neo4j/root # username / password
-      NEO4J_dbms_security_auth__minimum__password__length: 4
-      NEO4J_dbms_memory_pagecache_size: 512M # cache size (e.g. 512MB)
-      NEO4J_dbms_memory_heap_initial__size: 1G # initial heap memory
-      NEO4J_dbms_memory_heap_max__size: 1G # max heap memory
-    volumes:
-      - neo4j_data:/data # data saving volume
-      - neo4j_logs:/logs # log saving volume
-      - neo4j_import:/var/lib/neo4j/import # CSV 데이터 등 가져오기 파일 저장
-      - neo4j_plugins:/plugins # Neo4j 플러그인 설치 위치
     networks:
       - mockstagram-network
   kafka: # ref: https://github.com/apache/kafka/blob/trunk/docker/examples/README.md
@@ -255,12 +261,12 @@ volumes:
   mongodb-data:
   redis_data:
   es_data:
-  neo4j_data:
-  neo4j_logs:
-  neo4j_import:
-  neo4j_plugins:
   minio_data:
   dynamodb_data:
+#  neo4j_data:
+#  neo4j_logs:
+#  neo4j_import:
+#  neo4j_plugins:
 networks:
   mockstagram-network:
     driver: bridge
