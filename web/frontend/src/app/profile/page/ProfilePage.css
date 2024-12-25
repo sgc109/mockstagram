@@ -1,0 +1,103 @@
+.profile-page {
+    width: 50%;
+    margin: auto auto auto auto;
+    padding: 20px;
+}
+
+.feed {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    z-index: 1;
+}
+
+/* Profile Container */
+.profile-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Profile Header */
+.profile-header {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.profile-picture {
+    margin-right: 20px;
+}
+
+.profile-picture img {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+}
+
+/* Profile Information */
+.profile-info {
+    flex: 1;
+}
+
+.profile-info h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.profile-info p {
+    margin: 5px 0;
+}
+
+/* Profile Posts */
+.profile-posts {
+    margin-top: 20px;
+}
+
+.profile-posts h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+/* Post Grid Layout */
+.post-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+}
+
+/* Post Card Styling */
+.post-card {
+    overflow: hidden;
+}
+
+.post-card img {
+    width: 100%;
+    height: auto;
+}
+
+.profile-page > .profile-header > .avatar {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    margin: 80px 120px 80px 80px;
+}
+
+.profile-page > .profile-header {
+    margin-top: 30px;
+}
+
+.profile-info-section {
+    display: flex;           /* Flexbox 활성화 */
+    flex-direction: column;  /* 세로 방향으로 배치 */
+    gap: 10px;               /* 항목 간 간격 추가 */
+}
+
+.profile-username-section {
+    font-size: 25px;
+}
+
+.profile-name {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}

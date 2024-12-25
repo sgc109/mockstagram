@@ -3,6 +3,7 @@ import {Post as PostData} from '../../../../../shared/post/types';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faBookmark, faComment, faHeart, faPaperPlane} from '@fortawesome/free-solid-svg-icons'
 import "./FeedPost.css";
+import {Link} from "react-router-dom";
 
 interface FeedPostProps {
     post: PostData;
@@ -13,8 +14,12 @@ const FeedPost: React.FC<FeedPostProps> = ({post, openPostDetailDialog}) => {
     return (
         <div className="post">
             <div className="post-header">
-                <img src={post.author.imageUrl} alt={post.author.username} className="avatar"/>
-                <span className="user">{post.author.username}</span>
+                <Link to={`/${post.author.username}`} style={{textDecoration: 'none', color: 'inherit'}}>
+                    <img src={post.author.imageUrl} alt={post.author.username} className="avatar"/>
+                </Link>
+                <Link to={`/${post.author.username}`} style={{textDecoration: 'none', color: 'inherit'}}>
+                    <span className="user">{post.author.username}</span>
+                </Link>
             </div>
             <img src={post.pages[0].imageUrl} alt={post.description} className="post-image"/>
 
