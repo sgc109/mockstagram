@@ -6,7 +6,7 @@ module.exports = {
         alias: {
             '@core': resolve('src/core'),
             '@app': resolve('src/app'),
-            '@shared': resolve('../../shared'),
+            '@shared': resolve('../shared'),
         },
     },
     devServer: {

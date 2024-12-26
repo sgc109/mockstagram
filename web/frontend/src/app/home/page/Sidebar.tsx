@@ -1,6 +1,7 @@
 import React from "react";
 import "./Sidebar.css";
 import {Link} from "react-router-dom";
+import {LOGGEDIN_USERNAME} from "@app/config";
 
 interface MenuItem {
     icon: string; // 아이콘 클래스 이름
@@ -18,11 +19,11 @@ const Sidebar: React.FC<SidebarProps> = ({openPostUploadDialog}) => {
         {icon: "fa fa-home", label: "Home", link: "/"},
         {icon: "fa fa-search", label: "Search"},
         {icon: "fa fa-compass", label: "Explore"},
-        {icon: "fa fa-film", label: "Reels"},
+        // {icon: "fa fa-film", label: "Reels"},
         {icon: "fa fa-paper-plane", label: "Messages"},
         {icon: "fa fa-heart", label: "Notifications"},
         {icon: "fa fa-plus-square", label: "Create", onClick: openPostUploadDialog},
-        {icon: "fa fa-circle", label: "Profile", link: `/${process.env.REACT_APP_LOGGEDIN_USERNAME}`},
+        {icon: "fa fa-circle", label: "Profile", link: `/${LOGGEDIN_USERNAME}`},
     ];
 
     return (

@@ -8,9 +8,11 @@ import {Link} from "react-router-dom";
 interface FeedPostProps {
     post: PostData;
     openPostDetailDialog: () => void;
+    likePost: (targetPostId: string) => void;
+    unlikePost: (targetPostId: string) => void;
 }
 
-const FeedPost: React.FC<FeedPostProps> = ({post, openPostDetailDialog}) => {
+const FeedPost: React.FC<FeedPostProps> = ({post, openPostDetailDialog, likePost, unlikePost}) => {
     return (
         <div className="post">
             <div className="post-header">
@@ -26,13 +28,17 @@ const FeedPost: React.FC<FeedPostProps> = ({post, openPostDetailDialog}) => {
             {/* buttons below */}
             <div className="post-actions">
                 <div className="action-buttons">
-                    {/* 좋아요 */}
-                    <button className="action-btn"><FontAwesomeIcon className='icon' icon={faHeart} inverse/></button>
-                    {/* 댓글 */}
+                    {/* Like */}
+                    <button className="action-btn"><FontAwesomeIcon className='icon' icon={faHeart}
+                                                                    style={{color: post.isLiked ? "red" : "white"}}
+                                                                    inverse
+                                                                    onClick={() => post.isLiked ? unlikePost(post.id) : likePost(post.id)}/>
+                    </button>
+                    {/* Comment */}
                     <button className="action-btn" onClick={openPostDetailDialog}>
                         <FontAwesomeIcon className='icon' icon={faComment} inverse/>
                     </button>
-                    {/* 공유 */}
+                    {/* Share */}
                     <button className="action-btn"><FontAwesomeIcon className='icon' icon={faPaperPlane} inverse/>
                     </button>
                 </div>
