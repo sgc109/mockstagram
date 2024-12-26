@@ -28,7 +28,9 @@ const Sidebar: React.FC<SidebarProps> = ({openPostUploadDialog}) => {
     return (
         <div className="sidebar">
             {/* Mockstagram Logo */}
-            <div className="sidebar__logo">Mockstagram</div>
+            <Link to="/" style={{textDecoration: 'none', color: 'inherit'}}>
+                <div className="sidebar__logo">Mockstagram</div>
+            </Link>
 
             {/* Sidebar Menu */}
             <div className="sidebar__menu">
