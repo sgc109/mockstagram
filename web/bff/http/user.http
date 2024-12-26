@@ -1,0 +1,3 @@
+### Get User
+GET {{host}}/api/v1/users/seanhwang
+Content-Type: application/json

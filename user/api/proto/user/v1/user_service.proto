@@ -11,7 +11,8 @@ option java_package = "sean.hwang.mockstagram.content.api.user.v1";
 service UserService {
   rpc FindUser (FindUserRequest) returns (User) {
     option (google.api.http) = {
-      get: "/v1/users"
+      post: "/v1/users",
+      body: "*"
     };
   }
 }

@@ -4,6 +4,7 @@ import postRoutes from './routes/post/index';
 import authRoutes from './routes/auth/index';
 import likeRoutes from './routes/like/index';
 import feedRoutes from './routes/feed/index';
+import userRoutes from '@/routes/user/index';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -17,6 +18,7 @@ app.use('/api/v1/feed', feedRoutes);
 app.use('/api/v1', likeRoutes);
 app.use('/api/v1/posts', postRoutes);
 app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/users', userRoutes);
 
 const PORT = 8082;
 app.listen(PORT, () => {
