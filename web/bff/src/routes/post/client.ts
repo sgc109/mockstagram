@@ -25,5 +25,8 @@ export async function listUserPosts(authorId: number, pageSize: number, pageNum:
     }
     const response = await axios.post<ListPostsResponse>(`${CONTENT_API_URL}/v1/posts:list`, request);
 
-    return response.data;
+    return {
+        posts: response.data.posts ?? [],
+        nextPageToken: response.data.nextPageToken ?? '',
+    }
 }

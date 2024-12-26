@@ -14,6 +14,7 @@ router.get('/:userId/posts', async (req: Request, res: Response) => {
     const pageSize = Number(req.query.size) || 20;
     const pageNum = Number(req.query.num) || 1;
     const response = await listPosts(Number(req.params.userId), pageSize, pageNum);
+    console.log("resopnse", response)
 
     res.json(response)
 });
