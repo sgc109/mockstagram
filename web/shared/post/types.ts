@@ -2,7 +2,7 @@ export interface Post {
     id: string,
     author: PostAuthor,
     description: string,
-    pages: Page[],
+    pages: PostPage[],
     createdAt: string,
     likeCount: number,
     commentCount: number,
@@ -16,7 +16,7 @@ export interface PostAuthor {
     imageUrl: string,
 }
 
-export interface Page {
+export interface PostPage {
     imageUrl: string
 }
 
@@ -37,4 +37,29 @@ export interface PostPageForm {
 
 export interface UploadPostResponse {
     post: Post,
+}
+
+export interface ListPostsRequest {
+    page: Page,
+    filter: Filter,
+    order: Order,
+}
+
+export enum Order {
+    ORDER_UNSPECIFIED = 0,
+    ORDER_NEWEST = 1,
+}
+
+export interface Filter {
+    authorId?: number
+}
+
+export interface ListPostsResponse {
+    posts: Post[],
+    nextPageToken: string,
+}
+
+export interface Page {
+    num: number,
+    size: number,
 }

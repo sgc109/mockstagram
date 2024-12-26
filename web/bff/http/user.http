@@ -1,3 +1,6 @@
-### Get User
+### Get user
 GET {{host}}/api/v1/users/seanhwang
 Content-Type: application/json
+
+### List user posts
+GET {{host}}/api/v1/users/1/posts?size=20&page=1

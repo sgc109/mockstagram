@@ -19,7 +19,8 @@ service PostService {
 
   rpc ListPosts (ListPostsRequest) returns (ListPostsResponse) {
     option (google.api.http) = {
-      get: "/v1/posts"
+      post: "/v1/posts:list",
+      body: "*"
     };
   }
 }

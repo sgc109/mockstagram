@@ -25,7 +25,7 @@ Content-Type: application/json; charset=utf-8; protocol=gRPC
     "size": 20
   },
   "filter": {
-    "authorId": "67506d607eff4332976ce23d"
+    "authorId": "1"
   },
   "order": "ORDER_NEWEST"
 }
