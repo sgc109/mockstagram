@@ -1,0 +1,65 @@
+syntax = "proto3";
+package comment.v1;
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+import "comment/v1/comment.proto";
+
+option java_multiple_files = true;
+option java_package = "sean.hwang.mockstagram.comment.api.comment.v1";
+
+service CommentService {
+  rpc CreateComment (CreateCommentRequest) returns (Comment) {
+    option (google.api.http) = {
+      post: "/v1/comment",
+      body: "*"
+    };
+  }
+
+  rpc DeleteComment (DeleteCommentRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/v1/comment:delete",
+      body: "*"
+    };
+  }
+
+  rpc BatchGetCommentStats (BatchGetCommentStatsRequest) returns (BatchGetCommentStatsResponse) {
+    option (google.api.http) = {
+      post: "/v1/comments:batchGetStats",
+      body: "*"
+    };
+  }
+}
+
+message BatchGetCommentStatsRequest {
+  google.protobuf.StringValue requester_id = 1;
+  repeated CommentTarget comment_targets = 2;
+}
+
+message BatchGetCommentStatsResponse {
+  repeated CommentStat comment_stats = 1;
+}
+
+message CommentTarget {
+  google.protobuf.StringValue id = 1;
+  Comment.TargetType type = 2;
+}
+
+message CommentStat {
+  CommentTarget target = 1;
+  google.protobuf.UInt64Value comment_count = 2;
+}
+
+message CreateCommentRequest {
+  google.protobuf.StringValue requester_id = 1;
+  google.protobuf.StringValue target_id = 2;
+  Comment.TargetType target_type = 3;
+  google.protobuf.StringValue text = 4;
+}
+
+message DeleteCommentRequest {
+  google.protobuf.StringValue requester_id = 1;
+  google.protobuf.StringValue target_id = 2;
+  Comment.TargetType target_type = 3;
+}

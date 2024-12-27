@@ -1,0 +1,34 @@
+### CreateComment
+POST {{host}}/comment.v1.CommentService/CreateComment
+Content-Type: application/json; charset=utf-8; protocol=gRPC
+
+{
+  "requester_id": 1,
+  "target_id": "000000000000000000000000",
+  "target_type": "COMMENT_TARGET_TYPE_POST",
+  "text": "Hello, World!"
+}
+
+### DeleteComment
+POST {{host}}/comment.v1.CommentService/DeleteComment
+Content-Type: application/json; charset=utf-8; protocol=gRPC
+
+{
+  "requester_id": 1,
+  "target_id": "000000000000000000000000",
+  "target_type": "COMMENT_TARGET_TYPE_POST"
+}
+
+### BatchGetCommentStats
+POST {{host}}/comment.v1.CommentService/BatchGetCommentStats
+Content-Type: application/json; charset=utf-8; protocol=gRPC
+
+{
+  "requester_id": 1,
+  "comment_targets": [
+    {
+      "id": "000000000000000000000000",
+      "type": "COMMENT_TARGET_TYPE_POST"
+    }
+  ]
+}

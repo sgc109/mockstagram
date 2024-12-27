@@ -21,6 +21,7 @@ services:
     depends_on:
       - media-server
       - content-api
+      - comment-api
       - reaction-api
       - user-api
     env_file:
@@ -36,6 +37,7 @@ services:
     env_file:
       - ./media-server/.env.docker
     depends_on:
+      - minio
       - dynamodb
     volumes:
       - .:/app
@@ -50,6 +52,17 @@ services:
       - mongodb
     environment:
       MONGODB_DATASOURCE_URL: mongodb://content_user:content_pw@mongodb:27017/content?replicaSet=rs0&readPreference=primary
+    networks:
+      - mockstagram-network
+  comment-api:
+    image: mockstagram-comment-api
+    container_name: mockstagram-comment-api
+    ports:
+      - "50052:50052"
+    depends_on:
+      - mysql
+    environment:
+      JDBC_DATASOURCE_URL: jdbc:mysql://mysql:3306/comment?user=comment_user&password=comment_pw
     networks:
       - mockstagram-network
   reaction-api:

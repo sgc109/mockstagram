@@ -3,3 +3,7 @@ plugins {
 }
 rootProject.name = "comment"
 
+include(":api")
+include(":batch")
+include(":consumer")
+include(":domain")

@@ -1,11 +1,11 @@
 package sean.hwang.mockstagram.reaction.api.like.v1.converter
 
+import sean.hwang.mockstagram.reaction.api.like.v1.CreateLikeRequest
 import sean.hwang.mockstagram.reaction.api.like.v1.Like
 import sean.hwang.mockstagram.reaction.api.like.v1.Like.TargetType
+import sean.hwang.mockstagram.reaction.api.like.v1.LikeTarget
 import sean.hwang.mockstagram.reaction.api.like.v1.like
-import sean.hwang.mockstagram.reaction.api.post.v1.CreateLikeRequest
-import sean.hwang.mockstagram.reaction.api.post.v1.LikeTarget
-import sean.hwang.mockstagram.reaction.api.post.v1.likeTarget
+import sean.hwang.mockstagram.reaction.api.like.v1.likeTarget
 import sean.hwang.mockstagram.reaction.api.util.notNullValue
 import sean.hwang.mockstagram.reaction.api.util.toLong
 import sean.hwang.mockstagram.reaction.api.util.toStringValue
