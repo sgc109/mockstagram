@@ -95,7 +95,7 @@ jib {
         image = "openjdk:17-jdk-slim" // 베이스 이미지
     }
     to {
-        image = "mockstagram-reaction-api"
+        image = "mockstagram-notification-api"
     }
     container {
         jvmFlags = listOf("-Xms512m", "-Xmx1024m")
@@ -108,7 +108,7 @@ tasks.named("build") {
 }
 
 tasks.register<Jar>("protoSourcesJar") {
-    dependsOn("generateProto")
+    dependsOn("generateProto") // generateProto 작업을 먼저 실행하도록 설정
     from("build/generated/source/proto/main")
     archiveClassifier.set("proto-sources")
 }
@@ -123,9 +123,9 @@ publishing {
                 classifier = "proto-sources"
             }
 
-            groupId = "sean.hwang.mockstagram"
-            artifactId = "reaction-api-stubs"
-            version = "0.0.1"
+            groupId = "sean.hwang.mockstagram" // Replace with your group ID
+            artifactId = "notification-api-stubs" // Replace with your artifact ID
+            version = "0.0.1" // Replace with your version
         }
     }
 }
