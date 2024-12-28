@@ -44,5 +44,11 @@ The directories are organized by domain, and each microservice’s directory may
 
 ## Assumptions
 * Given that Instagram is a global service used by users worldwide, each type of database has a **primary DB in one region, with replica DBs in several other regions**. Servers handling user requests are assumed to be geographically distant from the primary DB. To simulate this, I plan to introduce **intentional network latency and design and implement the system with these considerations in mind**.
-* For testing convenience, the databases used by each microservice were configured as **separate logical DBs within a single physical DB**. However, each service was assigned a unique account, **granting access permissions exclusively to its own logical DB**.
-* In the case of the BFF (Backend For Frontend), I adopted TypeScript and Node.js, the same tech stack as the web client, to maximize code reusability and enhance development and maintenance efficiency, in line with the purpose of its name.
+ 
+## QnA
+* Why aren't all the microservices based on Spring Boot and Gradle managed within the same gradle project?
+  * According to Conway’s Law, the structure of a system tends to mirror the structure of the organization and the services used here will be managed by multiple teams in the real world. If a mono-repo is not being used, each service will be located in a separate remote repository managed by its respective team. Some teams may manage multiple services within a single repository within a same gradle project. This can vary depending on the organizational structure and ownership, so I'd rather assume that each service is stored in a separate remote repository.
+* Why is BFF (Backend For Frontend) developed using Typescript and Node.js?
+  * The concept of BFF (Backend For Frontend) originally emerged to be managed by the team developing and operating a specific client application, which is why it uses the same technology stack as the web client.
+* Why do all the microservices share a single database even though it's a microservices architecture?
+  * For the sake of simplicity and convenience in development and testing, the databases used by each microservice were configured as **separate logical DBs within a single physical DB**. However, each service was assigned a unique account, **granting access permissions exclusively to its own logical DB**.
