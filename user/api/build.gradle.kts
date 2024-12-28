@@ -7,6 +7,7 @@ plugins {
     kotlin("plugin.jpa")
     id("com.google.protobuf")
     id("com.google.cloud.tools.jib")
+    id("maven-publish")
 }
 
 java {
@@ -104,6 +105,29 @@ jib {
 
 tasks.named("build") {
     dependsOn("jibDockerBuild")
+}
+
+tasks.register<Jar>("protoSourcesJar") {
+    dependsOn("generateProto")
+    from("build/generated/source/proto/main")
+    archiveClassifier.set("proto-sources")
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("mavenJava") {
+            from(components["java"])
+
+            // Include generated sources
+            artifact(tasks.named("protoSourcesJar")) {
+                classifier = "proto-sources"
+            }
+
+            groupId = "sean.hwang.mockstagram"
+            artifactId = "user-api-stubs"
+            version = "0.0.1"
+        }
+    }
 }
 
 tasks.withType<Test> {
