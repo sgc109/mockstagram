@@ -5,6 +5,7 @@ services:
       context: ./web
       dockerfile: ./frontend/Dockerfile
     container_name: mockstagram-web-frontend
+    restart: on-failure
     ports:
       - "8081:8081"
     depends_on:
@@ -16,6 +17,7 @@ services:
       context: ./web
       dockerfile: ./bff/Dockerfile
     container_name: mockstagram-web-bff
+    restart: on-failure
     ports:
       - "8082:8082"
     depends_on:
@@ -32,6 +34,8 @@ services:
     build:
       context: ./media-server
       dockerfile: Dockerfile
+    container_name: mockstagram-media-server
+    restart: on-failure
     ports:
       - "8084:8084"
     env_file:
@@ -46,6 +50,7 @@ services:
   content-api:
     image: mockstagram-content-api
     container_name: mockstagram-content-api
+    restart: on-failure
     ports:
       - "50051:50051"
     depends_on:
@@ -57,6 +62,7 @@ services:
   comment-api:
     image: mockstagram-comment-api
     container_name: mockstagram-comment-api
+    restart: on-failure
     ports:
       - "50052:50052"
     depends_on:
@@ -68,6 +74,7 @@ services:
   reaction-api:
     image: mockstagram-reaction-api
     container_name: mockstagram-reaction-api
+    restart: on-failure
     ports:
       - "50053:50053"
     depends_on:
@@ -79,6 +86,7 @@ services:
   user-api:
     image: mockstagram-user-api
     container_name: mockstagram-user-api
+    restart: on-failure
     ports:
       - "50054:50054"
     depends_on:
@@ -90,7 +98,7 @@ services:
   redis:
     image: redis:6.0
     container_name: mockstagram-redis
-    restart: always
+    restart: on-failure
     ports:
       - "6379:6379"
     command: [ "redis-server", "/usr/local/etc/redis/redis.conf", "--appendonly", "yes" ]  # AOF 활성화로 데이터 영속성 보장
@@ -103,7 +111,7 @@ services:
   mysql:
     image: mysql:8.0
     container_name: mockstagram-mysql
-    restart: always
+    restart: on-failure
     ports:
       - "3306:3306"
     environment:
@@ -116,7 +124,7 @@ services:
   mongodb:
     image: mongo:4.4
     container_name: mockstagram-mongodb
-    restart: always
+    restart: on-failure
     ports:
       - "27017:27017"
     command: ["mongod", "--replSet", "rs0", "--keyFile", "/etc/mongo-keyfile", "--auth"]
@@ -132,6 +140,7 @@ services:
   dynamodb:
     image: amazon/dynamodb-local
     container_name: mockstagram-dynamodb
+    restart: on-failure
     ports:
       - "8000:8000"
     volumes:
@@ -160,6 +169,7 @@ services:
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.16.1
     container_name: mockstagram-elasticsearch
+    restart: on-failure
     ports:
       - "9200:9200" # Elasticsearch API
       - "9300:9300" # Communication between nodes
@@ -182,6 +192,7 @@ services:
   kibana:
     image: docker.elastic.co/kibana/kibana:8.16.1 # same version with Elasticsearch
     container_name: mockstagram-kibana
+    restart: on-failure
     ports:
       - "5601:5601" # Kibana Web UI
     environment:
@@ -192,9 +203,8 @@ services:
       - mockstagram-network
   kafka: # ref: https://github.com/apache/kafka/blob/trunk/docker/examples/README.md
     image: apache/kafka:3.9.0
-    hostname: kafka
     container_name: mockstagram-kafka
-    restart: unless-stopped
+    restart: on-failure
     ports:
       - "19091:19091"
     environment:
@@ -202,13 +212,27 @@ services:
     volumes:
       - ./init/kafka/file-input:/mnt/shared/config
       - ./init/kafka/secrets:/etc/kafka/secrets
-      - /var/lib/kafka/data
+      - kafka_data:/var/lib/kafka/data
+    networks:
+      - mockstagram-network
+  schema-registry:
+    image: confluentinc/cp-schema-registry:6.2.0
+    container_name: mockstagram-schema-registry
+    restart: on-failure
+    ports:
+      - "8085:8085"
+    environment:
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: PLAINTEXT://kafka:9092
+      SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8085
+      SCHEMA_REGISTRY_HOST_NAME: schema-registry
+    depends_on:
+      - kafka
     networks:
       - mockstagram-network
   kafka-connect:
     image: debezium/connect:2.7.3.Final
     container_name: mockstagram-kafka-connect
-    hostname: kafka-connect
+    restart: on-failure
     ports:
       - "8083:8083"
     environment:
@@ -221,6 +245,7 @@ services:
       - mysql
       - mongodb
       - kafka
+      - schema-registry
     volumes:
       - ./init/kafka-connect/likes-outbox-connector.json:/kafka/connect/likes-outbox-connector.json
 #      - ./init/kafka-connect/mongo-source-connector.json:/kafka/connect/mongo-source-connector.json
@@ -231,6 +256,7 @@ services:
   akhq:
     image: tchiotludo/akhq:0.25.1
     container_name: mockstagram-akhq
+    restart: on-failure
     ports:
       - "8080:8080"
     environment:
@@ -245,6 +271,7 @@ services:
   minio:
     image: minio/minio
     container_name: mockstagram-minio
+    restart: on-failure
     environment:
       - MINIO_ROOT_USER=root
       - MINIO_ROOT_PASSWORD=rootroot
@@ -254,12 +281,12 @@ services:
     volumes:
       - minio_data:/data
     command: server /data --console-address ":9001"
-    restart: always
     networks:
       - mockstagram-network
   nginx:
     image: nginx:latest
     container_name: mockstagram-nginx
+    restart: on-failure
     ports:
       - "80:80" # Nginx 웹 서버
     volumes:
@@ -277,6 +304,7 @@ volumes:
   es_data:
   minio_data:
   dynamodb_data:
+  kafka_data:
 #  neo4j_data:
 #  neo4j_logs:
 #  neo4j_import:

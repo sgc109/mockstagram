@@ -10,8 +10,8 @@ akhq:
     my-cluster-plain-text: # url friendly name for the cluster (letter, number, _, -, ... dot are not allowed here)
       properties: # standard kafka properties (optional)
         bootstrap.servers: "kafka:9092"
-#      schema-registry:
-#        url: "http://schema-registry:8085" # schema registry url (optional)
+      schema-registry:
+        url: "http://schema-registry:8085" # schema registry url (optional)
 #        type: "confluent" # schema registry type (optional). Supported types are "confluent" (default) or "tibco"
 #        # Basic Auth user / pass
 #        basic-auth-username: basic-auth-user
