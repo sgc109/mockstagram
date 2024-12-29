@@ -5,6 +5,8 @@ plugins {
 }
 
 dependencies {
+    implementation(project(":domain"))
+
     implementation("sean.hwang.mockstagram:comment-api-stubs:0.0.1")
     implementation("sean.hwang.mockstagram:reaction-api-stubs:0.0.1")
     implementation("sean.hwang.mockstagram:user-api-stubs:0.0.1")
@@ -12,6 +14,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.springframework.kafka:spring-kafka")
+    implementation("io.github.microutils:kotlin-logging-jvm:2.1.23")
+
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testImplementation("org.springframework.kafka:spring-kafka-test")

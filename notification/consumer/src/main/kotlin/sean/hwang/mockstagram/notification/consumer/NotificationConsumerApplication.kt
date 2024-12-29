@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class ConsumerApplication
+class NotificationConsumerApplication
 
 fun main(args: Array<String>) {
-    runApplication<ConsumerApplication>(*args)
+    runApplication<NotificationConsumerApplication>(*args)
 }
