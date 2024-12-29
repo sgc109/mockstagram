@@ -1,0 +1,22 @@
+{
+  "name": "likes-outbox-connector",
+  "config": {
+    "connector.class": "io.debezium.connector.mysql.MySqlConnector",
+    "tasks.max": "1",
+    "database.hostname": "mysql",
+    "database.port": "3306",
+    "database.user": "debezium_user",
+    "database.password": "debezium_pw",
+    "database.server.id": "184054",
+    "schema.history.internal.kafka.bootstrap.servers": "kafka:9092",
+    "schema.history.internal.kafka.topic": "schemahistory.likes",
+    "topic.prefix": "debezium.cdc.mysql",
+    "database.include.list": "reaction",
+    "table.include.list": "reaction.likes_outbox",
+    "tombstones.on.delete": "false",
+    "transforms": "outbox",
+    "transforms.outbox.type": "io.debezium.transforms.outbox.EventRouter",
+    "transforms.outbox.route.topic.replacement": "${routedByValue}.events",
+    "transforms.outbox.table.fields.additional.placement": "type:header:eventType"
+  }
+}

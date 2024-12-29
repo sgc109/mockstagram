@@ -222,7 +222,8 @@ services:
       - mongodb
       - kafka
     volumes:
-      - ./init/kafka-connect/mongo-source-connector.json:/kafka/connect/mongo-source-connector.json
+      - ./init/kafka-connect/likes-outbox-connector.json:/kafka/connect/likes-outbox-connector.json
+#      - ./init/kafka-connect/mongo-source-connector.json:/kafka/connect/mongo-source-connector.json
       - ./init/kafka-connect/es-sink-connector.json:/kafka/connect/es-sink-connector.json
       - ./init/kafka-connect/elasticsearch-sink:/kafka/connect/kafka-connect-elasticsearch
     networks:
