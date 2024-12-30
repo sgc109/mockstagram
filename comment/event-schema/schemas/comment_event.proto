@@ -1,0 +1,31 @@
+syntax = "proto3";
+package comment.v1;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/wrappers.proto";
+
+option java_multiple_files = true;
+option java_package = "sean.hwang.mockstagram.comment.event.comment.v1";
+
+message CommentEvent {
+  string id = 1;
+  OpType op_type = 2;
+  string comment_id = 3;
+  google.protobuf.StringValue commenter_id = 4;
+  string target_id = 5;
+  TargetType target_type = 6;
+  google.protobuf.UInt64Value count = 7;
+  google.protobuf.Timestamp created_at = 8;
+
+  enum OpType {
+    OP_TYPE_UNSPECIFIED = 0;
+    OP_TYPE_CREATE = 1;
+    OP_TYPE_DELETE = 2;
+  }
+
+  enum TargetType {
+    LIKE_TARGET_TYPE_UNSPECIFIED = 0;
+    LIKE_TARGET_TYPE_POST = 1;
+    LIKE_TARGET_TYPE_COMMENT = 2;
+  }
+}
