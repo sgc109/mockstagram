@@ -95,6 +95,22 @@ services:
       JDBC_DATASOURCE_URL: jdbc:mysql://mysql:3306/user?user=user_user&password=user_pw
     networks:
       - mockstagram-network
+  notification-consumer:
+    image: mockstagram-notification-consumer
+    container_name: mockstagram-notification-consumer
+    restart: on-failure
+    ports:
+      - "51056:51056"
+    depends_on:
+      - mysql
+      - kafka
+      - schema-registry
+    environment:
+      JDBC_DATASOURCE_URL: jdbc:mysql://mysql:3306/notification?user=notification_user&password=notification_pw
+      CONSUMER_GROUP_ID: notification-consumer
+      SCHEMA_REGISTRY_URL: http://schema-registry:8086
+    networks:
+      - mockstagram-network
   redis:
     image: redis:6.0
     container_name: mockstagram-redis

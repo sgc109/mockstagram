@@ -34,7 +34,7 @@ spring:
         spring.deserializer.value.delegate.class: io.confluent.kafka.serializers.protobuf.KafkaProtobufDeserializer
         spring.json.trusted.packages: "*"
         schema.registry.url: ${SCHEMA_REGISTRY_URL:http://localhost:8086}
-        specific.protobuf.value.type: sean.hwang.mockstagram.reaction.event.like.v1.LikeEvent
+        specific.protobuf.value.type: sean.hwang.mockstagram.comment.event.comment.v1.CommentEvent
 
 logging:
   level:

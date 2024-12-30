@@ -92,7 +92,7 @@ publishing {
             }
 
             groupId = "sean.hwang.mockstagram"
-            artifactId = "reaction-event-schema"
+            artifactId = "comment-event-schema"
             version = "0.0.1"
         }
     }

@@ -1,4 +1,4 @@
-package sean.hwang.mockstagram.notification.consumer.consumer.like
+package sean.hwang.mockstagram.notification.consumer.listener.comment
 
 import mu.KLogging
 import org.springframework.kafka.annotation.KafkaHandler
@@ -7,19 +7,19 @@ import org.springframework.messaging.MessageHeaders
 import org.springframework.messaging.handler.annotation.Headers
 import org.springframework.messaging.handler.annotation.Payload
 import org.springframework.stereotype.Component
-import sean.hwang.mockstagram.reaction.event.like.v1.LikeEvent
+import sean.hwang.mockstagram.comment.event.comment.v1.CommentEvent
 
 @Component
-@KafkaListener(topics = ["likes.event"], groupId = "notification-consumer")
-class LikeEventConsumer(
-    private val likeEventHandler: LikeEventHandler,
+@KafkaListener(topics = ["comment.event"], containerFactory = "commentEventListenerContainerFactory")
+class CommentEventListener(
+    private val commentEventHandler: CommentEventHandler,
 ) {
     @KafkaHandler
     fun handleMessage(
         @Headers headers: MessageHeaders,
-        @Payload event: LikeEvent,
+        @Payload event: CommentEvent,
     ) {
-        likeEventHandler.handle(event)
+        commentEventHandler.handle(event)
     }
 
     @KafkaHandler(isDefault = true)
