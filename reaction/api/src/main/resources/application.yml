@@ -23,6 +23,15 @@ spring:
       connection-timeout: 20000
       validation-timeout: 5000
 
+  kafka:
+    bootstrap-servers:
+      - http://localhost:19091
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: io.confluent.kafka.serializers.protobuf.KafkaProtobufSerializer
+      properties:
+        schema.registry.url: ${SCHEMA_REGISTRY_URL:http://localhost:8086}
+
 logging:
   level:
     org.springframework: DEBUG

@@ -220,10 +220,10 @@ services:
     container_name: mockstagram-schema-registry
     restart: on-failure
     ports:
-      - "8085:8085"
+      - "8086:8086"
     environment:
       SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: PLAINTEXT://kafka:9092
-      SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8085
+      SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8086
       SCHEMA_REGISTRY_HOST_NAME: schema-registry
     depends_on:
       - kafka
@@ -247,7 +247,7 @@ services:
       - kafka
       - schema-registry
     volumes:
-      - ./init/kafka-connect/likes-outbox-connector.json:/kafka/connect/likes-outbox-connector.json
+#      - ./init/kafka-connect/likes-outbox-connector.json:/kafka/connect/likes-outbox-connector.json
 #      - ./init/kafka-connect/mongo-source-connector.json:/kafka/connect/mongo-source-connector.json
       - ./init/kafka-connect/es-sink-connector.json:/kafka/connect/es-sink-connector.json
       - ./init/kafka-connect/elasticsearch-sink:/kafka/connect/kafka-connect-elasticsearch

@@ -1,4 +1,4 @@
-package sean.hwang.mockstagram.notification.consumer.consumer
+package sean.hwang.mockstagram.notification.consumer.consumer.like
 
 import mu.KLogging
 import org.springframework.kafka.annotation.KafkaHandler
@@ -7,17 +7,19 @@ import org.springframework.messaging.MessageHeaders
 import org.springframework.messaging.handler.annotation.Headers
 import org.springframework.messaging.handler.annotation.Payload
 import org.springframework.stereotype.Component
-import sean.hwang.mockstagram.notification.consumer.dto.LikeEvent
+import sean.hwang.mockstagram.reaction.event.like.v1.LikeEvent
 
 @Component
 @KafkaListener(topics = ["likes.event"], groupId = "notification-consumer")
-class LikeEventConsumer {
+class LikeEventConsumer(
+    private val likeEventHandler: LikeEventHandler,
+) {
     @KafkaHandler
     fun handleMessage(
         @Headers headers: MessageHeaders,
         @Payload event: LikeEvent,
     ) {
-        logger.info { "message consumed: headers=${headers}, payload=$event" }
+        likeEventHandler.handle(event)
     }
 
     @KafkaHandler(isDefault = true)
@@ -25,6 +27,7 @@ class LikeEventConsumer {
         @Headers headers: MessageHeaders,
         @Payload event: Any,
     ) {
+        logger.info { "Received unknown message: event=$event, headers=$headers" }
     }
 
     companion object : KLogging()

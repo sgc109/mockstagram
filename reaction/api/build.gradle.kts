@@ -24,6 +24,7 @@ val nettyVersion = "4.1.115.Final"
 
 dependencies {
     implementation(project(":domain"))
+    implementation(project(":event-schema"))
 
     // armeria
     // https://github.com/line/armeria-examples/blob/main/grpc/build.gradle
@@ -34,16 +35,19 @@ dependencies {
     implementation("com.linecorp.armeria:armeria-spring-boot3-webflux-starter")
     implementation("com.linecorp.armeria:armeria-spring-boot3-actuator-starter")
     implementation("com.linecorp.armeria:armeria-grpc")
+    implementation("org.springframework.kafka:spring-kafka")
 
     // grpc, protobuf
-    api("io.grpc:grpc-kotlin-stub:$grpcKotlinVersion") // kotlin stub 제공
-    api("com.google.protobuf:protobuf-kotlin:$protoVersion") // kotlin 코드 생성 도구
+    api("io.grpc:grpc-kotlin-stub:$grpcKotlinVersion")
+    api("com.google.protobuf:protobuf-kotlin:$protoVersion")
+    api("com.google.protobuf:protobuf-java:$protoVersion")
 
     implementation("org.springframework.boot:spring-boot-starter-webflux")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+    implementation("io.confluent:kafka-protobuf-serializer:7.8.0")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.projectreactor:reactor-test")
@@ -79,7 +83,7 @@ protobuf {
 sourceSets {
     main {
         proto {
-            srcDir("proto") // 루트 레벨의 proto 디렉터리를 추가
+            srcDir("proto")
         }
 
         kotlin {

@@ -10,6 +10,7 @@
     "database.include.list": "content",
     "collection.include.list": "content.posts",
     "topic.prefix": "debezium.cdc.mongodb",
+    "topic.creation.default.cleanup.policy": "compact",
     "transforms": "MongoFlatten,RenameId",
     "transforms.MongoFlatten.type" : "io.debezium.connector.mongodb.transforms.ExtractNewDocumentState",
     "transforms.MongoFlatten.drop.tombstones": "false",

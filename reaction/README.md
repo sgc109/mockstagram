@@ -12,3 +12,5 @@
   * Kafka consumer
 * `/domain`
   * Data access layer and business logic
+* `/event-schema`
+  * .proto files for Kafka event schema
