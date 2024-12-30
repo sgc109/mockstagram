@@ -5,11 +5,15 @@ import sean.hwang.mockstagram.comment.domain.comment.entity.Comment
 import sean.hwang.mockstagram.comment.domain.comment.entity.CommentTargetType
 
 interface CommentRepository : JpaRepository<Comment, Long> {
-    fun findByTargetIdAndTargetTypeAndAuthorId(targetId: String, targetType: CommentTargetType, authorId: Long): Comment?
+    fun findByTargetIdAndTargetTypeAndCommenterId(
+        targetId: String,
+        targetType: CommentTargetType,
+        commenterId: Long,
+    ): Comment?
 
-    fun findAllByTargetIdInAndTargetTypeAndAuthorId(
+    fun findAllByTargetIdInAndTargetTypeAndCommenterId(
         targetIds: List<String>,
         targetType: CommentTargetType,
-        authorId: Long
+        commenterId: Long,
     ): List<Comment>
 }

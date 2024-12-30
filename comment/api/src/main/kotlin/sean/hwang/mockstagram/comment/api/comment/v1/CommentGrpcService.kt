@@ -30,7 +30,7 @@ class CommentGrpcService(
             commentService.deleteComment(
                 targetId = request.targetId.notNullValue(),
                 targetType = request.targetType.toDomain(),
-                authorId = request.requesterId.toLong(),
+                commenterId = request.requesterId.toLong(),
             )
         }
 
@@ -49,7 +49,7 @@ class CommentGrpcService(
             withContext(Dispatchers.IO) {
                 commentService.batchGetComments(
                     commentTargets = commentTargets,
-                    authorId = it,
+                    commenterId = it,
                 )
             }
         }

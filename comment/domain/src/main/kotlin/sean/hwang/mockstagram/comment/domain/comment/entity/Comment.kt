@@ -27,7 +27,7 @@ data class Comment(
     @Column(name = "target_type", nullable = false)
     val targetType: CommentTargetType,
     @Column(name = "author_id", nullable = false)
-    val authorId: Long,
+    val commenterId: Long,
     @Column(name = "text", length = 1000, nullable = false)
     val text: String,
     @CreatedDate

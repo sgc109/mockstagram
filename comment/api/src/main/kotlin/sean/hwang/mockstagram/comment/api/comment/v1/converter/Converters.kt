@@ -18,7 +18,7 @@ object Converters {
             this.id = entity.id.toString()
             this.targetId = entity.targetId.toStringValue()
             this.targetType = entity.targetType.toProto()
-            this.authorId = entity.authorId.toStringValue()
+            this.commenterId = entity.commenterId.toStringValue()
             this.createdAt = entity.createdAt.toTimestamp()
             this.updatedAt = entity.updatedAt.toTimestamp()
         }
@@ -28,7 +28,7 @@ object Converters {
         return sean.hwang.mockstagram.comment.domain.comment.entity.Comment(
             targetId = this.targetId.notNullValue(),
             targetType = this.targetType.toDomain(),
-            authorId = this.requesterId.toLong(),
+            commenterId = this.requesterId.toLong(),
             text = this.text.notNullValue(),
         )
     }
