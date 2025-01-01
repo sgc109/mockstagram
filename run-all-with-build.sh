@@ -1,4 +1,4 @@
 #!/bin/bash
 
 ./build-all-gradle-projects.sh
-docker-compose up --build
+docker compose up -d --build
