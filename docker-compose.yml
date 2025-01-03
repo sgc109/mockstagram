@@ -284,6 +284,30 @@ services:
       - ./init/akhq/application.yml:/app/application.yml
     networks:
       - mockstagram-network
+  jobmanager:
+    image: flink:latest
+    container_name: mockstagram-flink-jobmanager
+    ports:
+      - "8087:8081"
+    environment:
+      FLINK_PROPERTIES: "jobmanager.rpc.address: jobmanager"
+    volumes:
+      - flink_data:/tmp/
+    command: jobmanager
+    networks:
+      - mockstagram-network
+  taskmanager:
+    image: flink:latest
+    container_name: mockstagram-flink-taskmanager
+    depends_on:
+      - jobmanager
+    environment:
+      FLINK_PROPERTIES: "jobmanager.rpc.address: jobmanager"
+    volumes:
+      - flink_data:/tmp/
+    command: taskmanager
+    networks:
+      - mockstagram-network
   minio:
     image: minio/minio
     container_name: mockstagram-minio
@@ -321,6 +345,7 @@ volumes:
   minio_data:
   dynamodb_data:
   kafka_data:
+  flink_data:
 #  neo4j_data:
 #  neo4j_logs:
 #  neo4j_import:
