@@ -22,6 +22,11 @@ dependencies {
 
     api("org.springframework.boot:spring-boot-starter-data-jpa")
 
+    // QueryDSL
+    api(group = "com.querydsl", name = "querydsl-jpa", classifier = "jakarta")
+    kapt(group = "com.querydsl", name = "querydsl-apt", classifier = "jakarta")
+    kapt("org.springframework.boot:spring-boot-configuration-processor")
+
     testImplementation(kotlin("test"))
 }
 

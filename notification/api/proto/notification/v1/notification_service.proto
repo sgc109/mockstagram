@@ -1,0 +1,29 @@
+syntax = "proto3";
+package notification.v1;
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/wrappers.proto";
+import "notification/v1/notification.proto";
+
+option java_multiple_files = true;
+option java_package = "sean.hwang.mockstagram.notification.api.notification.v1";
+
+service notificationService {
+  rpc ListNotifications (ListNotificationsRequest) returns (ListNotificationsResponse) {
+    option (google.api.http) = {
+      post: "/v1/notifications:listNotifications",
+      body: "*"
+    };
+  }
+}
+
+message ListNotificationsRequest {
+  google.protobuf.StringValue requester_id = 1;
+  google.protobuf.UInt32Value page_num = 2;
+  google.protobuf.UInt32Value page_size = 3;
+}
+
+message ListNotificationsResponse {
+  repeated Notification notifications = 1;
+}

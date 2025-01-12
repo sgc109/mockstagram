@@ -10,8 +10,6 @@ services:
       - "8081:8081"
     depends_on:
       - web-bff
-    networks:
-      - mockstagram-network
   web-bff:
     build:
       context: ./web
@@ -28,8 +26,6 @@ services:
       - user-api
     env_file:
       - ./web/bff/.env.docker
-    networks:
-      - mockstagram-network
   media-server:
     build:
       context: ./media-server
@@ -45,8 +41,6 @@ services:
       - dynamodb
     volumes:
       - .:/app
-    networks:
-      - mockstagram-network
   content-api:
     image: mockstagram-content-api
     container_name: mockstagram-content-api
@@ -57,8 +51,6 @@ services:
       - mongodb
     environment:
       MONGODB_DATASOURCE_URL: mongodb://content_user:content_pw@mongodb:27017/content?replicaSet=rs0&readPreference=primary
-    networks:
-      - mockstagram-network
   comment-api:
     image: mockstagram-comment-api
     container_name: mockstagram-comment-api
@@ -69,8 +61,6 @@ services:
       - mysql
     environment:
       JDBC_DATASOURCE_URL: jdbc:mysql://mysql:3306/comment?user=comment_user&password=comment_pw
-    networks:
-      - mockstagram-network
   reaction-api:
     image: mockstagram-reaction-api
     container_name: mockstagram-reaction-api
@@ -81,8 +71,6 @@ services:
       - mysql
     environment:
       JDBC_DATASOURCE_URL: jdbc:mysql://mysql:3306/reaction?user=reaction_user&password=reaction_pw
-    networks:
-      - mockstagram-network
   user-api:
     image: mockstagram-user-api
     container_name: mockstagram-user-api
@@ -93,8 +81,6 @@ services:
       - mysql
     environment:
       JDBC_DATASOURCE_URL: jdbc:mysql://mysql:3306/user?user=user_user&password=user_pw
-    networks:
-      - mockstagram-network
   notification-consumer:
     image: mockstagram-notification-consumer
     container_name: mockstagram-notification-consumer
@@ -109,8 +95,6 @@ services:
       JDBC_DATASOURCE_URL: jdbc:mysql://mysql:3306/notification?user=notification_user&password=notification_pw
       CONSUMER_GROUP_ID: notification-consumer
       SCHEMA_REGISTRY_URL: http://schema-registry:8086
-    networks:
-      - mockstagram-network
   redis:
     image: redis:6.0
     container_name: mockstagram-redis
@@ -122,8 +106,6 @@ services:
       - ./init/redis/redis.conf:/usr/local/etc/redis/redis.conf
       - ./init/redis/users.acl:/etc/redis/users.acl  # ACL 파일 추가
       - redis_data:/data
-    networks:
-      - mockstagram-network
   mysql:
     image: mysql:8.0
     container_name: mockstagram-mysql
@@ -135,8 +117,6 @@ services:
     volumes:
       - ./init/mysql:/docker-entrypoint-initdb.d
       - mysql-data:/var/lib/mysql
-    networks:
-      - mockstagram-network
   mongodb:
     image: mongo:4.4
     container_name: mockstagram-mongodb
@@ -151,8 +131,6 @@ services:
       - ./init/mongodb/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
       - ./init/mongodb/mongo-keyfile:/etc/mongo-keyfile:ro
       - mongodb-data:/data/db
-    networks:
-      - mockstagram-network
   dynamodb:
     image: amazon/dynamodb-local
     container_name: mockstagram-dynamodb
@@ -161,8 +139,6 @@ services:
       - "8000:8000"
     volumes:
       - dynamodb_data:/data
-    networks:
-      - mockstagram-network
   #  neo4j:
   #    image: neo4j:5.25.1
   #    container_name: mockstagram-neo4j
@@ -180,8 +156,6 @@ services:
   #      - neo4j_logs:/logs # log saving volume
   #      - neo4j_import:/var/lib/neo4j/import # CSV 데이터 등 가져오기 파일 저장
   #      - neo4j_plugins:/plugins # Neo4j 플러그인 설치 위치
-  #    networks:
-  #      - mockstagram-network
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.16.1
     container_name: mockstagram-elasticsearch
@@ -203,8 +177,6 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
-    networks:
-      - mockstagram-network
   kibana:
     image: docker.elastic.co/kibana/kibana:8.16.1 # same version with Elasticsearch
     container_name: mockstagram-kibana
@@ -215,8 +187,6 @@ services:
       - ELASTICSEARCH_HOSTS=http://elasticsearch:9200 # connect to Elasticsearch
     depends_on:
       - elasticsearch
-    networks:
-      - mockstagram-network
   kafka: # ref: https://github.com/apache/kafka/blob/trunk/docker/examples/README.md
     image: apache/kafka:3.9.0
     container_name: mockstagram-kafka
@@ -229,8 +199,6 @@ services:
       - ./init/kafka/file-input:/mnt/shared/config
       - ./init/kafka/secrets:/etc/kafka/secrets
       - kafka_data:/var/lib/kafka/data
-    networks:
-      - mockstagram-network
   schema-registry:
     image: confluentinc/cp-schema-registry:6.2.0
     container_name: mockstagram-schema-registry
@@ -243,8 +211,6 @@ services:
       SCHEMA_REGISTRY_HOST_NAME: schema-registry
     depends_on:
       - kafka
-    networks:
-      - mockstagram-network
   kafka-connect:
     image: debezium/connect:2.7.3.Final
     container_name: mockstagram-kafka-connect
@@ -267,8 +233,6 @@ services:
 #      - ./init/kafka-connect/mongo-source-connector.json:/kafka/connect/mongo-source-connector.json
       - ./init/kafka-connect/es-sink-connector.json:/kafka/connect/es-sink-connector.json
       - ./init/kafka-connect/elasticsearch-sink:/kafka/connect/kafka-connect-elasticsearch
-    networks:
-      - mockstagram-network
   akhq:
     image: tchiotludo/akhq:0.25.1
     container_name: mockstagram-akhq
@@ -282,8 +246,6 @@ services:
       - kafka-connect
     volumes:
       - ./init/akhq/application.yml:/app/application.yml
-    networks:
-      - mockstagram-network
   jobmanager:
     image: flink:latest
     container_name: mockstagram-flink-jobmanager
@@ -294,8 +256,6 @@ services:
     volumes:
       - flink_data:/tmp/
     command: jobmanager
-    networks:
-      - mockstagram-network
   taskmanager:
     image: flink:latest
     container_name: mockstagram-flink-taskmanager
@@ -306,8 +266,6 @@ services:
     volumes:
       - flink_data:/tmp/
     command: taskmanager
-    networks:
-      - mockstagram-network
   minio:
     image: minio/minio
     container_name: mockstagram-minio
@@ -321,8 +279,6 @@ services:
     volumes:
       - minio_data:/data
     command: server /data --console-address ":9001"
-    networks:
-      - mockstagram-network
   nginx:
     image: nginx:latest
     container_name: mockstagram-nginx
@@ -335,8 +291,6 @@ services:
       - minio
       - web-frontend
       - web-bff
-    networks:
-      - mockstagram-network
 volumes:
   mysql-data:
   mongodb-data:
@@ -350,6 +304,3 @@ volumes:
 #  neo4j_logs:
 #  neo4j_import:
 #  neo4j_plugins:
-networks:
-  mockstagram-network:
-    driver: bridge

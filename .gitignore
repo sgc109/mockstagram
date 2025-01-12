@@ -1,3 +1,4 @@
 **/.idea
 **/.gradle
 monitoring/signoz/docker/clickhouse-setup/data
+logs/

@@ -14,8 +14,9 @@ message CommentEvent {
   google.protobuf.StringValue commenter_id = 4;
   string target_id = 5;
   TargetType target_type = 6;
-  google.protobuf.UInt64Value count = 7;
-  google.protobuf.Timestamp created_at = 8;
+  string content = 7;
+  google.protobuf.UInt64Value count = 8;
+  google.protobuf.Timestamp created_at = 9;
 
   enum OpType {
     OP_TYPE_UNSPECIFIED = 0;
